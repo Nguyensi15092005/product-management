@@ -1,0 +1,77 @@
+extends ../../layout/default.pug
+include ../../mixin/alert.pug
+include ../../mixin/moment.pug
+
+
+block main
+  if(role.permissions.includes("roles_view")) 
+    +alert-error(5000)
+    +alert-success(5000)
+    h2(class="mb-4") Nhóm quyền
+
+    .card.mb-3 
+      .card-header Danh sách
+      .card-body
+        if(role.permissions.includes("roles_create"))
+          .row 
+            .col-8
+              
+            .col-4.text-right
+              a(
+                href=`${prefixAdmin}/roles/create`
+                class="btn btn-outline-success active"
+              ) +Thêm mới
+        table(class="table table-hover table-sm")
+          thead 
+            tr 
+              th STT
+              th Nhóm quyền
+              th Mô tả ngắn
+              th Người tạo
+              th Người chỉnh sửa
+              th Hành động
+            tbody
+              each item, index in roles
+                tr
+                  td #{index+1}
+                  td #{item.title}
+                  td #{item.description}
+
+                  td 
+                    p #{item.account_Fullname}
+                    p   
+                      +formatDate(item.createdBy.createdAt)
+                  
+                  td 
+                    - const updatedBy = item.updatedBy.slice(-1)[0]
+                    if(updatedBy)
+                      p #{updatedBy.account_Fullname}
+                      p   
+                        +formatDate(updatedBy.updatedAt)
+
+                  td 
+                    a(
+                      href=`${prefixAdmin}/roles/detail/${item.id}`
+                      class="btn btn-info"
+                    ) Chi tiết
+
+                    if(role.permissions.includes("roles_edit"))
+                      a(
+                        href=`${prefixAdmin}/roles/edit/${item.id}`
+                        class="btn btn-warning"
+                      ) Sửa
+                    if(role.permissions.includes("roles_delete"))
+                      button(
+                        class="btn btn-danger"
+                        button-delete
+                        data-id=item.id
+                      ) Xóa
+
+    form(
+      action=""
+      method="POST"
+      id="form-delete-item"
+      data-path=`${prefixAdmin}/roles/delete`
+    )
+
+    script(src="/admin/js/products.js")

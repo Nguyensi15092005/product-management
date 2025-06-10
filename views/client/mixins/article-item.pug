@@ -1,0 +1,11 @@
+mixin article-item(item)
+    .col-4.mb-3 
+        .product-item 
+            a(href=`/articles/detail/${item.slug}`)
+                .inner-img  
+                    img(src=item.thumbnail, alt=item.title)
+                    if(item.featured=="1")
+                        .inner-featured Nổi bật
+                .inner-content
+                    h3.inner-title  #{item.title}
+                    .inner-article_content !{item.content}

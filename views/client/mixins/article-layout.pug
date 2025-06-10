@@ -1,0 +1,8 @@
+include article-item.pug
+
+mixin article-grid(article)
+  .row 
+    each item in article
+      +article-item(item)
+
+      

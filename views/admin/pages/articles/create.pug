@@ -1,0 +1,123 @@
+extends ../../layout/default.pug
+include ../../mixin/alert.pug
+include ../../mixin/select-tree.pug
+
+block main 
+  if(role.permissions.includes("articles_create"))
+    h2 Thêm mới bài viết
+
+    +alert-success("5000")
+    +alert-error("5000")
+
+    form(
+      action=`${prefixAdmin}/articles/create`
+      method="POST"
+      enctype="multipart/form-data"
+    ) 
+      div(class="form-group")
+        label(for="title") Tiêu đề
+        input(
+          type="text"
+          id="title"
+          name="title"
+          class="form-control"
+          required
+        ) 
+      div(class="form-group")
+        label(for="article_category_id") Danh mục
+        select(
+          name="article_category_id"
+          id="article_category_id"
+          class="form-control"
+        ) 
+          option(value="") --Chọn danh mục cha--
+            if(article)
+              +select-tree(article)
+      div(class="form-group")
+          label(for="content") Nội dung
+          textarea(
+            class="form-control textarea-mce"
+            id="content"
+            name="content"
+            rows="5"
+          ) 
+      div(
+        class="form-group"
+        upload-image
+        )
+        label(for="thumbnail") Ảnh
+        input(
+          type="file"
+          class="form-control-file"
+          id="thumbnail"
+          name="thumbnail"
+          accept="image/*"
+          upload-image-input
+        )
+        img(
+          src=""
+          class="image-preview"
+          upload-image-preview
+        )
+        button(
+          close-image
+          class="close-image"
+        ) x
+      div(class="form-group")
+        label(for="position") Vị trí
+        input(
+          type="number"
+          class="form-control"
+          id="position"
+          name="position"
+          placeholder="Tự động tăng"
+          min="1"
+        )
+
+      div(class="form-group")
+        label(for="") Nổi bật
+        br
+        div(class="form-group form-check form-check-inline")
+          input(
+            type="radio"
+            class="form-check-input"
+            id="featured1"
+            name="featured"
+            value="1"
+            checked
+          )
+          label(for="featured1" class="form-check-label") có  
+        div(class="form-group form-check form-check-inline")
+          input(
+            type="radio"
+            class="form-check-input"
+            id="featured2"
+            name="featured"
+            value="0"
+          )
+          label(for="featured2" class="form-check-label") không
+
+      div(class="form-group form-check form-check-inline")
+        input(
+          type="radio"
+          class="form-check-input"
+          id="statusActive"
+          name="status"
+          value="active"
+          checked
+        )
+        label(for="statusActive" class="form-check-label") Hoạt động 
+      div(class="form-group form-check form-check-inline")
+        input(
+          type="radio"
+          class="form-check-input"
+          id="statusInactive"
+          name="status"
+          value="inactive"
+        )
+        label(for="statusInactive" class="form-check-label") Dừng hoạt động
+      div(class="form-group")
+        button(
+          type="submit"
+          class="btn btn-primary"
+        ) Tạo mới

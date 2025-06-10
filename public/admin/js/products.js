@@ -1,3 +1,4 @@
+console.log("ok")
 const buttonChangeStatus = document.querySelectorAll("[button-change-status]");
 if (buttonChangeStatus.length > 0) {
   const formchangeStatus = document.querySelector("#form-change-status");
@@ -11,6 +12,32 @@ if (buttonChangeStatus.length > 0) {
       let changeStatus = status == "active" ? "inactive" : "active";
       // console.log(status, id);
       // console.log(changeStatus);
+
+      const action = path + `/${changeStatus}/${id}?_method=PATCH`;
+      formchangeStatus.action = action;
+
+      formchangeStatus.submit();
+    })
+  })
+}
+
+const aChangeStatus = document.querySelectorAll("[a-change-status]");
+if (aChangeStatus.length > 0) {
+  const formchangeStatus = document.querySelector("#form-change-status");
+  const path = formchangeStatus.getAttribute("data-path");
+
+  aChangeStatus.forEach(button => {
+    button.addEventListener("click", () => {
+      console.log("OK")
+      const status = button.getAttribute("data-status");
+      console.log(status)
+      const id = button.getAttribute("data-id");
+
+      let changeStatus = (status == "comfirm") ? "notcomfirm" : "comfirm";
+      console.log(changeStatus)
+
+      console.log(status, id);
+      console.log(changeStatus);
 
       const action = path + `/${changeStatus}/${id}?_method=PATCH`;
       formchangeStatus.action = action;

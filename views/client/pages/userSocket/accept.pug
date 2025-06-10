@@ -1,0 +1,45 @@
+extends ../../layout/default.pug
+include ../../mixins/box-head.pug
+
+block main
+  .section-products-featured.my-5
+    .container.my-3
+      include ../../partials/list-btn-user.pug
+      .row 
+        .col-12 
+          +box-head("Lời Mời kết bạn")
+
+      .row(data-users-accept=user.id)
+        each user in users
+          .col-6(user-id=user.id)
+            div(class="box-user")
+              div(class="inner-avt")
+                img(
+                  src=user.avatar ? user.avatar : "/img/avtUserSocket.png"
+                  alt=user.fullName
+                )
+
+              div(class="inner-info")
+                div(class="inner-name") #{user.fullName}
+                div(class="inner-btn")
+                  button(
+                    class="btn btn-sm btn-primary mr-1"
+                    btn-accept-friend=user.id
+                  ) Chấp nhận
+                  button(
+                    class="btn btn-sm btn-secondary mr-1"
+                    btn-refuse-friend=user.id
+                  ) Xóa
+                  button(
+                    class="btn btn-sm btn-secondary mr-1"
+                    btn-delete-friend=user.id
+                    disabled
+                  ) Đã xóa
+                  button(
+                    class="btn btn-sm btn-primary mr-1"
+                    btn-accepted-friend=user.id
+                    disabled
+                  ) Bạn bè
+block script 
+  script(src="/js/userSocket.js")
+    

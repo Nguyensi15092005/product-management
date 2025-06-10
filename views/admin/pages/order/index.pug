@@ -1,0 +1,101 @@
+extends ../../layout/default.pug
+include ../../mixin/filter-status.pug
+include ../../mixin/form-change-multi.pug
+include ../../mixin/pagination.pug
+include ../../mixin/alert.pug
+
+
+block main 
+  if(role.permissions.includes("order_view"))
+    +alert-success("5000")
+    +alert-error("5000")
+    h1 Quản lý đơn hàng
+    .card.mb-3 
+        .card-header Danh sách
+        .card-body
+          table(
+            class="table table-hover table-sm"
+            checkbox-multi
+          )
+
+            .row 
+              .col-8 
+                if(role.permissions.includes("order_edit"))
+                  +form-change-multiOder(`${prefixAdmin}/order/change-multi?_method=PATCH`)
+            thead 
+              tr
+                if(role.permissions.includes("order_edit")) 
+                  th 
+                    input(type="checkbox" name="checkall")
+                th STT
+                th Người đặt
+                th Số lượng sản phẩm
+                th Tổng tiền
+                th Trạng thái
+                th Hành động
+            tbody 
+              each item, index in order
+                tr 
+                  td 
+                    input(
+                      type="checkbox"
+                      name="id"
+                      value=item.id
+                    )
+                  td #{pagination.limitItems*(pagination.currentPage-1)+(index+1)}
+                  td #{item.userInfo.fullname}
+                  td #{item.totalQuantity}
+                  td #{item.totalPrice}$
+                  td
+                    if(role.permissions.includes("order_edit"))
+                      if item.status == "notcomfirm"
+                        a(
+                          href="javascript:;"
+                          a-change-status 
+                          data-status=item.status 
+                          data-id=item.id
+                          class="badge badge-warning"
+                        ) Chưa xác nhận
+                      else
+                        a(
+                          href="javascript:;"
+                          a-change-status 
+                          data-status=item.status 
+                          data-id=item.id
+                          class="badge badge-success"
+                        ) Đã xác nhận
+                    else
+                      if item.status == "notcomfirm"
+                        a(
+                          href="#"
+                          class="badge badge-warning"
+                        ) Chưa xác nhận
+                      else
+                        a(
+                          href="#"
+                          class="badge badge-success"
+                        ) Đã xác nhận
+                  td 
+                    a(href=`${prefixAdmin}/order/detail/${item.id}` class="btn btn-success") chi tiết
+                    a(href=`${prefixAdmin}/order/delete/${item.id}` class="btn btn-danger") Xóa
+
+    nav 
+      +pagination(pagination)
+
+      
+    form(
+      action=""
+      method="POST"
+      id="form-change-status"
+      data-path=`${prefixAdmin}/order/change-status`
+    )
+    script(src="/admin/js/products.js") 
+
+                  
+
+
+          
+
+
+
+

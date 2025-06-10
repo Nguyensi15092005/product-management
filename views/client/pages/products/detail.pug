@@ -1,27 +1,62 @@
 extends ../../layout/default.pug
+include ../../mixins/box-head.pug
+include ../../mixins/alert.pug
+
 
 block main 
-  .container.my-3 
-    .row 
-      .col-12 
-        if(product.title)
-          h1(class="mb-4") #{product.title}
+  +alert-success(2000)
+  .product-detail
+    .container.my-3 
+      .row 
+        .col-6 
+            if(product.thumbnail)
+              div(class="mb-4 inner-img")  
+                img(
+                  src=product.thumbnail
+                )
 
-        if(product.price)
-          div(class="mb-4") Giá: <b>#{product.price}$</b>
+        .col-6
+          if(product.title)
+            h1(class="mb-4 inner-title") #{product.title}
 
-        if(product.discountPercentage)
-          div(class="mb-4") Giảm giá: <b>#{product.discountPercentage}%</b>
-        
-        if(product.stock)
-          div(class="mb-4") Còn lại: <b>#{product.stock}</b>
+          if(product.category)
+            div(class="mb-4 inner-category") Danh mục:  
+              a(href=`/products/${product.category.slug}`) #{product.category.title}
 
-        if(product.thumbnail)
-          div(class="mb-4")  
-            img(
-              src=product.thumbnail
-              style="width:100px"
+          if(product.priceNew)
+            div(class="mb-4 inner-priceNew") #{product.priceNew}$
+
+          if(product.price)
+            div(class="mb-4 inner-price") <del>#{product.price}$</del>
+
+          if(product.discountPercentage)
+            div(class="mb-4 inner-discountPercentage") Giảm giá: <span>#{product.discountPercentage}%</span>
+          
+          if(product.stock)
+            div(class="mb-4 inner-stock") Còn lại: <span>#{product.stock}</span> sản phẩm
+
+          form(
+            action=`/cart/add/${product.id}`
+            method="POST"
+          ) 
+            input(
+              type="number"
+              name="quantity"
+              class="form-control mb-2"
+              value="1"
+              min="1"
+              max=product.stock
             )
-        
-        if (product.description)
-          div(class="mb-4") #{product.description}
+
+            button(
+              type="submit"
+              class="btn btn-success btn-block"
+            ) Thêm vào giỏ hàng
+    hr
+
+    .container.my-5 
+      .row 
+        .col-12
+          +box-head("Mô trả sản phẩm")
+          .inner-description !{product.description}
+            

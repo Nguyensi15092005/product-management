@@ -1,0 +1,47 @@
+extends ../../layout/default.pug
+include ../../mixin/select-tree.pug
+
+block main
+  if(role.permissions.includes("products-category_view"))
+    if(productsCategory.title)
+      h1(class="mb-4") #{productsCategory.title}
+
+    if(productsCategory.thumbnail)
+      div(class="mb-4")  
+        img(
+          src=productsCategory.thumbnail
+          style="width:100px"
+        )
+    
+    if(productsCategory.parent_id)
+      div(class="mb-4")
+        select(
+          name="parent_id"
+          id="parent_id"
+          class="form-control"
+        ) 
+          option(value="") --Chọn danh mục cha--
+          if(category)
+            +select-tree(category, 1 ,productsCategory.parent_id)
+
+    if(productsCategory.status)
+      div(class="mb-4")
+        span Trạng thái:
+        if (productsCategory.status === "active")
+          span(class="badge badge-success") Hoạt động
+        else 
+          span(class="badge badge-danger") Dừng hoạt động
+
+    if (productsCategory.position)
+      div(class="mb-4") Vị trí: <b>#{productsCategory.position}</b>
+
+    if (productsCategory.description)
+      div(class="mb-4") #{productsCategory.description}
+
+    if(role.permissions.includes("products-category_edit"))
+      a(
+        href=`${prefixAdmin}/products-category/edit/${productsCategory.id}`
+        class="btn btn-warning"
+      ) Chỉnh sửa
+
+    script(src="/admin/js/products.js")

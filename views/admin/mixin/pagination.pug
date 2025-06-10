@@ -3,10 +3,10 @@ mixin pagination(pagination)
       li(class="page-item")
         button(
           class="page-link"
-          button-page = pagination.currentPage > 0 ? (
+          button-page = pagination.currentPage > 0  ? (
             pagination.currentPage - 1
           ):(
-            pagination.currentPage
+            pagination.currentPage 
           )
           ) Trang trước
       - for(let i = 1; i <= pagination.totalPage; i++)

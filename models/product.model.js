@@ -5,27 +5,49 @@ mongoose.plugin(slug);
 
 const productSchema = new mongoose.Schema({
     title: String,   //San pham 1
+    product_category_id: {
+        type: String,
+        default: ""
+    },
     description: String,
     price: Number,
     discountPercentage: Number,
     stock: Number,
     thumbnail: String,
+    featured: String,
     status: String,
     position: Number,
     deleted: {
         type: Boolean,
         default: false
     },
+    createdBy: {
+        account_id: String,
+        createdAt: {
+            type: Date,
+            default: Date.now
+        }
+    },
     slug: {  // thư viện npm dùng để có cái trên trang ở trên url đường dẫn
         type: String,
         slug: "title", //San pham 1
         unique: true  // duy nhất
     },
-    deletedAt:Date
+    updatedBy: [
+        {
+            account_id: String,
+            updatedAt: Date  
+        }
+    ],
+    // deletedAt: Date
+    deletedBy: {
+        account_id: String,
+        deletedAt: Date
+    },
 },
-{
-    timestamps: true
-});
+    {
+        timestamps: true
+    });
 
 const Product = mongoose.model('Product', productSchema, "products");
 console.log(Product);

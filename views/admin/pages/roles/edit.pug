@@ -1,0 +1,36 @@
+extends ../../layout/default.pug
+include ../../mixin/alert.pug
+
+block main
+  if(role.permissions.includes("roles_edit")) 
+    +alert-error(5000)
+    +alert-success(5000)
+    h2(class="mb-4") Thêm mới nhóm quyền 
+
+    form(
+      action=`${prefixAdmin}/roles/edit/${role.id}?_method=PATCH`
+      method="post"
+    ) 
+      div(class="form-group")
+        label(for="title") Tiêu đề
+        input(
+          type="text"
+          id="title"
+          class="form-control"
+          name="title"
+          value=role.title
+        ) 
+      div(class="form-group")
+        label(for="desc") Mô tả
+        input(
+          type="text"
+          id="desc"
+          class="form-control"
+          name="description"
+          value=role.description
+        ) 
+      div(class="form-group")
+        button(
+          type="submit"
+          class="btn btn-primary"
+        ) Cập nhật

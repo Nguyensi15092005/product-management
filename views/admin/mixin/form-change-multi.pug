@@ -20,3 +20,26 @@ mixin form-change-multi(patch)
                     class="form-control d-none"
                 )
             button(type="submit" class="btn btn-primary") Áp dụng
+
+mixin form-change-multiOder(patch)
+    form(
+        action=patch
+        method="POST"
+        form-change-multi
+    ) 
+        .d-flex.align-items-start
+            .form-group
+                select(name="type" class="form-control") 
+                    option(disabled selected) --Chọn hành động--
+                    option(value="comfirm") Đã xác nhận
+                    option(value="notcomfirm") chưa xác nhận
+            .form-group 
+                input(
+                    type="text"
+                    name="ids"
+                    value=""
+                    class="form-control d-none"
+                )
+            button(type="submit" class="btn btn-primary") Áp dụng
+
+

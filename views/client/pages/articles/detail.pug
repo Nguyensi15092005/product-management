@@ -1,0 +1,10 @@
+extends ../../layout/default.pug
+include ../../mixins/box-head.pug
+
+block main 
+  .article-detail 
+    .container.my-3 
+      .row 
+        .col-12
+          h3(class="inner-title") #{article.title}
+          .inner-content !{article.content}

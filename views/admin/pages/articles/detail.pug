@@ -1,0 +1,37 @@
+extends ../../layout/default.pug
+include ../../mixin/select-tree.pug
+
+block main
+  if(role.permissions.includes("articles_view"))
+    if(article.title)
+      h1(class="mb-4") #{article.title}
+
+    if(article.thumbnail)
+      div(class="mb-4")  
+        img(
+          src=article.thumbnail
+          style="width:100px"
+        )
+    
+    if(article.status)
+      div(class="mb-4")
+        span Trạng thái:
+        if (article.status === "active")
+          span(class="badge badge-success") Hoạt động
+        else 
+          span(class="badge badge-danger") Dừng hoạt động
+
+    if (article.position)
+      div(class="mb-4") Vị trí: <b>#{article.position}</b>
+
+    if (article.content)
+      div Nội dung: 
+      div(class="mb-4") !{article.content}
+
+    if(role.permissions.includes("articles_edit"))
+      a(
+        href=`${prefixAdmin}/articles/edit/${article.id}`
+        class="btn btn-warning"
+      ) Chỉnh sửa
+
+    script(src="/admin/js/products.js")

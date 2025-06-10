@@ -1,80 +1,92 @@
 extends ../../layout/default.pug
 include ../../mixin/search-form
 include ../../mixin/pagination.pug
+include ../../mixin/moment.pug
+
 
 
 block main  
-  h2 Danh sách Sản Phẩm Delete
+  if(role.permissions.includes("del-products_view"))
+    h2 Danh sách Sản Phẩm Delete
 
-  .card.mb-3 
-    .card-header Tìm kiếm sản phẩm
-    .card-body 
-      .row 
-        .col-4 
-          +search-form(keyword)
+    .card.mb-3 
+      .card-header Tìm kiếm sản phẩm
+      .card-body 
+        .row 
+          .col-4 
+            +search-form(keyword)
 
-      table(
-        class="table table-hover table-sm"
-      )
-        thead 
-          tr 
-            th STT 
-            th Hình ảnh
-            th Tiêu đề
-            th Giá
-            th Trạng thái
-            th Hành động
-        tbody
-          each item, index in products
-            tr  
-              td #{index +1}
-              td 
-                img(
-                  src=item.thumbnail
-                  alt=item.title
-                  width="100px"
-                  height="auto"
-                )
-              td #{item.title}
-              td #{item.price}$ 
-              td 
-                if(item.status == "active")
-                  a(
-                    href="javascript:;" 
-                    class="badge badge-success"
-                  ) Hoạt động
-                else 
-                  a(
-                    href="javascript:;" 
-                    class="badge badge-danger"
-                  ) Dừng hoạt động
-              td 
-                button(
-                  class="btn btn-warning"
-                  button-restore 
-                  data-id=item.id
-                ) Khôi phục 
-                button(
-                  class="btn btn-danger"
-                  button-delete 
-                  data-id=item.id
-                ) Xóa
-  
-  nav 
-    +pagination(pagination)
+        table(
+          class="table table-hover table-sm"
+        )
+          thead 
+            tr 
+              th STT 
+              th Hình ảnh
+              th Tiêu đề
+              th Giá
+              th Trạng thái
+              th Người xóa 
+              if(role.permissions.includes("del-products_delete") || role.permissions.includes("del-products_restore"))
+                th Hành động
+          tbody
+            each item, index in products
+              tr  
+                td #{index +1}
+                td 
+                  img(
+                    src=item.thumbnail
+                    alt=item.title
+                    width="100px"
+                    height="auto"
+                  )
+                td #{item.title}
+                td #{item.price}$ 
+                td 
+                  if(item.status == "active")
+                    a(
+                      href="javascript:;" 
+                      class="badge badge-success"
+                    ) Hoạt động
+                  else 
+                    a(
+                      href="javascript:;" 
+                      class="badge badge-danger"
+                    ) Dừng hoạt động
 
-  form(
-    action=""
-    method="POST"
-    id="form-restore-item"
-    data-path=`${prefixAdmin}/sp-delete/restore`
-  ) 
+                td 
+                  p #{item.account_Fullname}
+                  p 
+                    +formatDate(item.deletedBy.deletedAt)
+                td 
+                  if(role.permissions.includes("del-products_restore"))
+                    button(
+                      class="btn btn-warning"
+                      button-restore 
+                      data-id=item.id
+                    ) Khôi phục 
+                  if(role.permissions.includes("del-products_delete"))
+                    button(
+                      class="btn btn-danger"
+                      button-delete 
+                      data-id=item.id
+                    ) Xóa
+    
+    nav 
+      +pagination(pagination)
 
-  form(
-    action=""
-    method="POST"
-    id="form-delete-item"
-    data-path=`${prefixAdmin}/sp-delete/delete`
-  ) 
+    form(
+      action=""
+      method="POST"
+      id="form-restore-item"
+      data-path=`${prefixAdmin}/sp-delete/restore`
+    ) 
 
-  script(src="/admin/js/sp-delete.js") 
+    form(
+      action=""
+      method="POST"
+      id="form-delete-item"
+      data-path=`${prefixAdmin}/sp-delete/delete`
+    ) 
+
+    script(src="/admin/js/sp-delete.js") 

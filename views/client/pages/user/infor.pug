@@ -1,0 +1,15 @@
+extends ../../layout/default.pug
+include ../../mixins/box-head.pug
+
+
+block main
+  .container.my-3 
+    .row 
+      .col-12 
+        +box-head("Thông tin tài khoản ")
+        if(user.fullName)
+          div Họ và tên: <b>#{user.fullName}</b>
+        if(user.email)
+          div Email: <b>#{user.email}</b>
+        if(user.status)
+          div Trang Thái: <b>#{user.status}</b>

@@ -9,5 +9,4 @@ module.exports = (objectPagenation, query, countPage) => {
     objectPagenation.totalPage = totalPage;
 
     return objectPagenation;
-    // end pagination page
 }

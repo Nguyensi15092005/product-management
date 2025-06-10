@@ -1,0 +1,110 @@
+extends ../../layout/default.pug
+include ../../mixin/alert.pug
+include ../../mixin/select-tree.pug
+
+block main
+  if(role.permissions.includes("products-category_edit")) 
+    +alert-error(5000)
+    +alert-success(5000)
+
+    h1(class="mb-4") Chỉnh sửa sản phẩm 
+    form(
+      action=`${prefixAdmin}/products-category/edit/${productsCategory.id}?_method=PATCH`
+      id="form-edit-products"
+      method="POST"
+      enctype="multipart/form-data"
+    ) 
+      div(class="form-group")
+        label(for="title") Tên sản phẩm
+        input(
+          type="text"
+          id="title"
+          name="title"
+          class="form-control"
+          required
+          value=productsCategory.title
+        )
+      div(class="form-group")
+        label(for="title") Danh mục cha
+        //- input(
+        //-   type="text"
+        //-   id="parent_id"
+        //-   name="parent_id" 
+        //-   class="form-control"
+        //-   value=productsCategory.parent_id
+        //- )
+        select(
+          name="parent_id"
+          id="parent_id"
+          class="form-control"
+        ) 
+          option(value="") --Chọn danh mục cha--
+          if(category)
+            +select-tree(category, 1 ,productsCategory.parent_id)
+      div(class="form-group")
+        label(for="description") Mô tả
+        textarea(
+          class="form-control textarea-mce"
+          id="description"
+          name="description"
+          rows="5"
+          value=productsCategory.description
+        ) #{productsCategory.description}
+      div(
+        class="form-group"
+        upload-image
+        )
+        label(for="thumbnail") Ảnh
+        input(
+          type="file"
+          class="form-control-file"
+          id="thumbnail"
+          name="thumbnail"
+          accept="image/*"
+          upload-image-input
+        )
+        img(
+          src=productsCategory.thumbnail
+          class="image-preview"
+          upload-image-preview
+        )
+        button(
+          close-image
+          class="close-image"
+        ) x
+      div(class="form-group")
+        label(for="position") Vị trí
+        input(
+          type="number"
+          class="form-control"
+          id="position"
+          name="position"
+          placeholder="Tự động tăng"
+          min="1"
+          value=productsCategory.position
+        )
+      div(class="form-group form-check form-check-inline")
+        input(
+          type="radio"
+          class="form-check-input"
+          id="statusActive"
+          name="status"
+          value="active"
+          checked=(productsCategory.status == "active" ? true : false)
+        )
+        label(for="statusActive" class="form-check-label") Hoạt động 
+      div(class="form-group form-check form-check-inline")
+        input(
+          type="radio"
+          class="form-check-input"
+          id="statusInactive"
+          name="status"
+          value="inactive"
+          checked=(productsCategory.status == "inactive" ? true : false)
+        )
+        label(for="statusInactive" class="form-check-label") Dừng hoạt động
+      div(class="form-group")
+        button(
+          type="submit"
+          class="btn btn-primary"
+        ) Cập nhật

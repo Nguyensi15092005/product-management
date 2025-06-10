@@ -1,0 +1,48 @@
+extends ../../layout/default.pug
+
+
+block main 
+  if(role.permissions.includes("roles_view"))
+
+    if(role)
+      h2(class="mb-4") #{role.title}
+
+    if(role.description)
+      div #{role.description}
+    
+    if(role.permissions)
+      ul
+        each item in role.permissions 
+          if(item == 'products-category_view')
+            li Xem danh mục sản phẩm
+          if(item == 'products-category_create')
+            li Tạo danh mục sản phẩm 
+          if(item == 'products-category_edit')
+            li Sửa danh mục sản phẩm 
+          if(item == 'products-category_delete')
+            li Xóa danh mục sản phẩm 
+          if(item == 'products_view')
+            li Xem sản phẩm 
+          if(item == 'products_create')
+            li Tạo sản phẩm 
+          if(item == 'products_edit')
+            li Sửa sản phẩm
+          if(item == 'products_delete')
+            li Xóa sản phẩm 
+          if(item == 'roles_view')
+            li Xem nhóm quyền
+          if(item == 'roles_create')
+            li Tạo nhóm quyền
+          if(item == 'roles_edit')
+            li Sửa nhóm quyền 
+          if(item == 'roles_delete')
+            li Xóa nhóm quyền 
+
+    if(role.permissions.includes("roles_edit"))
+      a(
+        href=`${prefixAdmin}/roles/edit/${role.id}`
+        class="btn btn-warning"
+      ) Chỉnh sửa
+            
+
+  

@@ -1,6 +1,27 @@
 extends ../../layout/default.pug
+include ../../mixins/box-head.pug
+include ../../mixins/alert.pug
+include ../../mixins/product-layout.pug
+
 
 block main
-  h1 Tang Chu
+  +alert-success(2000)
+  .section-products-featured.my-5
+    .container.my-3 
+      .row 
+        .col-12 
+          +box-head("Sản phẩm nổi bật")
+
+      +product-grid(productFeatured)
+
+
+  .section-products-new.my-5
+    .container.my-3 
+      .row 
+        .col-12 
+          +box-head("Sản phẩm mới")
     
+      +product-grid(productsNew)
+    
+      
     

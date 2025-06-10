@@ -1,0 +1,110 @@
+extends ../../layout/default.pug
+include ../../mixin/alert.pug
+
+block main 
+  +alert-error(5000)
+  +alert-success(5000)
+
+  h2(class="mb-4") Chỉnh sửa thông tin cá nhân
+  
+  form(
+    action=`${prefixAdmin}/my-account/edit?_method=PATCH`
+    method="POST"
+    enctype="multipart/form-data"
+  ) 
+    div(class="form-group")
+      label(for="fullName") Họ tên *
+      input(
+        type="text"
+        name="fullName"
+        id="fullName"
+        class="form-control"
+        required
+        value=user.fullName
+      ) 
+
+    div(class="form-group")
+      label(for="email") Email *
+      input(
+        type="email"
+        name="email"
+        id="email"
+        class="form-control"
+        required
+        value=user.email
+      )
+
+    div(class="form-group")
+      label(for="password") Mật khẩu *
+      input(
+        type="password"
+        name="password"
+        id="password"
+        class="form-control"
+      )
+
+    div(class="form-group")
+      label(for="phone") Số điện thoại *
+      input(
+        type="text"
+        name="phone"
+        id="phone"
+        class="form-control"
+        required
+        value=user.phone
+      )
+
+    div(
+      class="form-group"
+      upload-image
+    )
+      label(for="avatar") Avatar
+      input(
+        type="file"
+        class="form-control-file"
+        id="avatar"
+        name="avatar"
+        accept="image/*"
+        upload-image-input
+      )
+      img(
+        src=""
+        class="image-preview"
+        upload-image-preview
+        style=("width:100px")
+      )
+      button(
+        close-image
+        class="close-image"
+      ) x
+
+    div(class="form-group form-check form-check-inline")
+      input(
+        type="radio"
+        class="form-check-input"
+        id="statusActive"
+        name="status"
+        value="active"
+        checked=(user.status=="active" ? true:false)
+      )
+      label(for="statusActive" class="form-check-label") Hoạt động 
+    div(class="form-group form-check form-check-inline")
+      input(
+        type="radio"
+        class="form-check-input"
+        id="statusInactive"
+        name="status"
+        value="inactive"
+        checked=(user.status=="inactive" ? true:false)
+      )
+      label(for="statusInactive" class="form-check-label") Dừng hoạt động
+
+    div(class="form-group")
+      button(
+        type="submit"
+        class="btn btn-primary"
+      ) Cập nhật 
+
+
+  
+

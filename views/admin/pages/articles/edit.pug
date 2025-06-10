@@ -1,0 +1,130 @@
+extends ../../layout/default.pug
+include ../../mixin/alert.pug
+include ../../mixin/select-tree.pug
+
+block main 
+  if(role.permissions.includes("articles_edit"))
+    h2 Chỉnh sửa bài viết
+
+    +alert-success("5000")
+    +alert-error("5000")
+
+    form(
+      action=`${prefixAdmin}/articles/edit/${article.id}?_method=PATCH`
+      id="form-edit-article"
+      method="POST"
+      enctype="multipart/form-data"
+    ) 
+      div(class="form-group")
+        label(for="title") Tiêu đề
+        input(
+          type="text"
+          id="title"
+          name="title"
+          class="form-control"
+          required
+          value=article.title
+        ) 
+
+      div(class="form-group")
+        label(for="article_category_id") Danh mục
+        select(
+          name="article_category_id"
+          id="article_category_id"
+          class="form-control"
+        ) 
+          option(value="") --Chọn danh mục cha--
+            if(category)
+              +select-tree(category, 1, article.article_category_id)
+      div(class="form-group")
+          label(for="content") Nội dung
+          textarea(
+            class="form-control textarea-mce"
+            id="content"
+            name="content"
+            rows="5"
+          ) #{article.content}
+      div(
+        class="form-group"
+        upload-image
+        )
+        label(for="thumbnail") Ảnh
+        input(
+          type="file"
+          class="form-control-file"
+          id="thumbnail"
+          name="thumbnail"
+          accept="image/*"
+          upload-image-input
+
+        )
+        img(
+          src=article.thumbnail
+          class="image-preview"
+          upload-image-preview
+        )
+        button(
+          close-image
+          class="close-image"
+        ) x
+      div(class="form-group")
+        label(for="position") Vị trí
+        input(
+          type="number"
+          class="form-control"
+          id="position"
+          name="position"
+          placeholder="Tự động tăng"
+          min="1"
+          value=article.position
+        )
+
+      div(class="form-group")
+        label(for="") Nổi bật
+        br
+        div(class="form-group form-check form-check-inline")
+          input(
+            type="radio"
+            class="form-check-input"
+            id="featured1"
+            name="featured"
+            value="1"
+            checked=(article.featured == "1" ? true:false)
+          )
+          label(for="featured1" class="form-check-label") có  
+        div(class="form-group form-check form-check-inline")
+          input(
+            type="radio"
+            class="form-check-input"
+            id="featured2"
+            name="featured"
+            value="0"
+            checked=(article.featured == "0" ? true:false)
+          )
+          label(for="featured2" class="form-check-label") không
+
+      div(class="form-group form-check form-check-inline")
+        input(
+          type="radio"
+          class="form-check-input"
+          id="statusActive"
+          name="status"
+          value="active"
+          checked=(article.status == "active" ? true:false)
+        )
+        label(for="statusActive" class="form-check-label") Hoạt động 
+      div(class="form-group form-check form-check-inline")
+        input(
+          type="radio"
+          class="form-check-input"
+          id="statusInactive"
+          name="status"
+          value="inactive"
+          checked=(article.status == "inactive" ? true:false)
+        )
+        label(for="statusInactive" class="form-check-label") Dừng hoạt động
+      div(class="form-group")
+        button(
+          type="submit"
+          class="btn btn-primary"
+        ) Cập nhật 

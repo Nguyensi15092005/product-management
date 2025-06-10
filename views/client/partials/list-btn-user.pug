@@ -1,0 +1,33 @@
+.row 
+    .col-12 
+        a(
+            href="/userSocket/not-friend"
+            class="btn btn-primary m-1"    
+        ) Danh sách người dùng
+        a(
+            href="/userSocket/friends"
+            class="btn btn-primary m-1"    
+        ) 
+            |   Danh sách bạn bè 
+            span(
+                class="badge badge-light"
+                badge-users-friend=user.id
+            ) #{user.friendList.length}
+        a(
+            href="/userSocket/request"
+            class="btn btn-primary m-1"    
+        ) 
+            |   Lời mời đã gửi 
+            span(
+                class="badge badge-light"
+                badge-users-request=user.id
+            ) #{user.requestFriends.length}
+        a(
+            href="/userSocket/accept"
+            class="btn btn-primary m-1"    
+        ) 
+            |   Lời mời kết bạn 
+            span(
+                class="badge badge-light"
+                badge-users-accept=user.id
+            ) #{user.acceptFriends.length}

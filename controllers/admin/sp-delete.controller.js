@@ -1,4 +1,5 @@
 const Product = require("../../models/product.model");
+const Accounts = require("../../models/account.model")
 const searchHelper = require("../../helper/search");
 const paginationHelper = require("../../helper/pagination");
 
@@ -29,7 +30,16 @@ module.exports.index = async (req, res) => {
 
 
 
-    const products = await Product.find(find).limit(objectPagenation.limitItems).skip(objectPagenation.skip);
+    let products = await Product.find(find).limit(objectPagenation.limitItems).skip(objectPagenation.skip);
+
+    for (const product of products) {
+        const user = await Accounts.findOne({
+            _id: product.deletedBy.account_id
+        });
+        if(user){
+            product.account_Fullname = user.fullName
+        }
+    }
 
     res.render("admin/pages/sp-delete/index", {
         pageTitle: "Trang sp_delete",

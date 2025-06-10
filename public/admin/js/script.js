@@ -47,8 +47,10 @@ if (buttonPagination) {
   buttonPagination.forEach(button => {
     button.addEventListener("click", () => {
       const page = button.getAttribute("button-page");
-      url.searchParams.set("page", page)
-      window.location.href = url.href
+      if (page > 0) {
+        url.searchParams.set("page", page)
+        window.location.href = url.href
+      }
     })
   })
 }
@@ -102,10 +104,10 @@ if (formchangeMulti) {
     const inputChecked = checkboxMuli.querySelectorAll("input[name='id']:checked");
 
     const tyChange = e.target.type.value;
-    
-    if(tyChange == "delete-all"){
+
+    if (tyChange == "delete-all") {
       const isComfirm = confirm("Bạn có chắt muốn xóa các sản phẩm này ko!!!");
-      if(!isComfirm){
+      if (!isComfirm) {
         return;
       }
     }
@@ -113,32 +115,32 @@ if (formchangeMulti) {
 
     if (inputChecked.length > 0) {
       let ids = [];
-      
+
       const inputIds = document.querySelector("input[name='ids']")
 
       inputChecked.forEach(input => {
         const id = input.value;
 
-        if(tyChange == "change-position"){
+        if (tyChange == "change-position") {
           const position = input.closest("tr").querySelector("input[name='position']").value;
 
           ids.push(`${id}-${position}`)
 
         }
-        else{
+        else {
           ids.push(id);
         }
-        
+
       })
-      
-      inputIds.value=ids.join(", ");
+
+      inputIds.value = ids.join(", ");
 
       formchangeMulti.submit();
 
 
     }
     else {
-      alert("vui lòng chạn 1 sản phẩm!");
+      alert("vui lòng chon 1 sản phẩm!");
     }
   })
 
@@ -147,40 +149,79 @@ if (formchangeMulti) {
 
 // Show-alert
 const showAlert = document.querySelector("[show-alert]");
-if(showAlert){
+if (showAlert) {
   const time = parseInt(showAlert.getAttribute("date-time"));
   const close = showAlert.querySelector("[close-alert]")
 
-  setTimeout(()=>{
+  setTimeout(() => {
     showAlert.classList.add("alert-hidden")
   }, time);
 
-  close.addEventListener("click", ()=>{
+  close.addEventListener("click", () => {
     showAlert.classList.add("alert-hidden")
   })
 }
 // end Show-alert
 
 // upload Image
-const uploadImage=document.querySelector("[upload-image]");
-if(uploadImage){
+const uploadImage = document.querySelector("[upload-image]");
+if (uploadImage) {
   const uploadImageInput = document.querySelector("[upload-image-input]")
   const uploadImagePreview = document.querySelector("[upload-image-preview]")
   const closeImage = document.querySelector("[close-image]")
 
-  uploadImageInput.addEventListener("change", (e)=>{
+  uploadImageInput.addEventListener("change", (e) => {
     const file = e.target.files[0];
-    if(file){
+    if (file) {
       uploadImagePreview.src = URL.createObjectURL(file)
     }
   })
-  closeImage.addEventListener("click", ()=>{
-    uploadImageInput.value=""
-    uploadImagePreview.src=""
+  closeImage.addEventListener("click", () => {
+    uploadImageInput.value = ""
+    uploadImagePreview.src = ""
   })
 
 }
 // end upload Image
+
+
+// Sort
+const sort = document.querySelector("[sort]");
+if (sort) {
+  let url = new URL(window.location.href);
+  const sortSelect = sort.querySelector("[sort-select]")
+  const sortClear = sort.querySelector("[sort-clear]")
+
+  // sắp xếp
+  sortSelect.addEventListener("change", (e) => {
+    const value = e.target.value;
+    const [sortKey, sortValue] = value.split("-");
+
+    url.searchParams.set("sortkey", sortKey);
+    url.searchParams.set("sortValue", sortValue);
+
+    window.location.href = url.href;
+  })
+
+  // Xóa sắp xép
+  sortClear.addEventListener("click", () => {
+    url.searchParams.delete("sortkey");
+    url.searchParams.delete("sortValue");
+    window.location.href = url.href;
+  })
+
+  // thêm selected cho option
+  const sortKey = url.searchParams.get("sortkey");
+  const sortValue = url.searchParams.get("sortValue");
+  if (sortKey && sortValue) {
+    const stringSort = `${sortKey}-${sortValue}`;
+    const optionSelected = sortSelect.querySelector(`option[value='${stringSort}']`);
+    if (optionSelected) {
+      optionSelected.selected = true;
+    }
+  }
+}
+// end Sort
 
 
 

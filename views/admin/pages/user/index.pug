@@ -1,0 +1,94 @@
+extends ../../layout/default.pug
+include ../../mixin/filter-status.pug
+include ../../mixin/search-form.pug
+include ../../mixin/pagination.pug
+include ../../mixin/form-change-multi.pug
+include ../../mixin/alert.pug
+include ../../mixin/sort.pug
+include ../../mixin/moment.pug
+
+block main
+  if(role.permissions.includes("user_manage_view"))
+    +alert-error(5000)
+    +alert-success(5000)
+    h2(class="mb-4") Danh sách User
+
+    .card.mb-3 
+      .card-header Danh sách
+      .card-body
+        .row 
+
+      table(class="table table-hover table-sm")
+        thead 
+          tr 
+            th STT
+            th Họ tên
+            th Email
+            th Trạng thái
+            th Người chỉnh sửa 
+            th Hành động
+        tbody
+          each item, index in user 
+            tr 
+              td #{index +1}
+              td #{item.fullName}
+              td #{item.email}
+              
+              if(role.permissions.includes("user_manage_edit"))
+                td 
+                  if(item.status == "active")
+                    a(
+                      href="javascript:;" 
+                      class="badge badge-success"
+                      button-change-status 
+                      data-status=item.status 
+                      data-id=item.id
+                    ) Hoạt động
+                  else
+                    a(
+                      href="javascript:;" 
+                      class="badge badge-danger"
+                      button-change-status 
+                      data-status=item.status 
+                      data-id=item.id
+                    ) Dừng hoạt động 
+              else
+                td 
+                  if(item.status == "active")
+                    a(
+                      href="#" 
+                      class="badge badge-success"
+                    ) Hoạt động
+                  else
+                    a(
+                      href="#" 
+                      class="badge badge-danger"
+                    ) Dừng hoạt động
+              
+              td 
+                - const updatedBy = item.updatedBy.slice(-1)[0]
+                if(updatedBy)
+                  p #{updatedBy.account_Fullname}
+                  p 
+                    +formatDate(updatedBy.updatedAt)
+              td 
+                button(
+                  class="btn btn-danger"
+                  button-delete
+                  data-id=item.id
+                ) Xóa
+
+    form(
+      action=""
+      method="POST"
+      id="form-change-status"
+      data-path=`${prefixAdmin}/user/change-status`
+    )
+    form(
+      action=""
+      method="POST"
+      id="form-delete-item"
+      data-path=`${prefixAdmin}/user/delete`
+    )
+    script(src="/admin/js/products.js") 
+

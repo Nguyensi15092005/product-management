@@ -1,0 +1,118 @@
+extends ../../layout/default.pug
+include ../../mixin/alert.pug
+
+block main 
+  +alert-error(5000)
+  +alert-success(5000)
+
+  h1(class="mb-4") Cài đặt chung 
+  form(
+    action=`${prefixAdmin}/setting/general?_method=PATCH`
+    method="POST"
+    enctype="multipart/form-data"
+  ) 
+    div(class="form-group")
+      label(for="websiteName") Tên website
+      input(
+        type="text"
+        id="websiteName"
+        name="websiteName"
+        class="form-control"
+        required
+        value = (settingGeneral? settingGeneral.websiteName : "")
+        )
+    div(
+      class="form-group"
+      upload-image
+    )
+      label(for="logo") Logo
+      input(
+        type="file"
+        class="form-control-file"
+        id="logo"
+        name="logo"
+        accept="image/*"
+        upload-image-input
+      )
+      img(
+        src=(settingGeneral? settingGeneral.logo : "")
+        class="image-preview"
+        upload-image-preview
+      )
+      button(
+        close-image
+        class="close-image"
+      ) x
+    div(class="form-group")
+      label(for="phone") Số điện thoại
+      input(
+        type="text"
+        id="phone"
+        name="phone"
+        class="form-control"
+        required
+        value = (settingGeneral? settingGeneral.phone : "")
+        )
+    div(class="form-group")
+      label(for="email") Email
+      input(
+        type="email"
+        id="email"
+        name="email"
+        class="form-control"
+        required
+        value = (settingGeneral? settingGeneral.email : "")
+        )
+    div(class="form-group")
+      label(for="addres") Địa chỉ
+      input(
+        type="text"
+        id="addres"
+        name="addres"
+        class="form-control"
+        required
+        value = (settingGeneral? settingGeneral.addres : "")
+        )
+
+    div(class="form-group")
+      label(for="facebook") Facebook
+      input(
+        type="text"
+        id="facebook"
+        name="facebook"
+        class="form-control"
+        required
+        value = (settingGeneral? settingGeneral.facebook : "")
+      )
+    div(class="form-group")
+      label(for="zalo") Zalo
+      input(
+        type="text"
+        id="zalo"
+        name="zalo"
+        class="form-control"
+        required
+        value = (settingGeneral? settingGeneral.zalo : "")
+      )
+    div(class="form-group")
+      label(for="tiktok") Tiktok
+      input(
+        type="text"
+        id="tiktok"
+        name="tiktok"
+        class="form-control"
+        required
+        value = (settingGeneral? settingGeneral.tiktok : "")
+      )
+    div(class="form-group")
+      label(for="copyright") Copyright
+      input(
+        type="text"
+        id="copyright"
+        name="copyright"
+        class="form-control"
+        required
+        value = (settingGeneral? settingGeneral.copyright : "")
+      )
+    div(class="form-group")
+      button(class="btn btn-primary") Cập nhật
