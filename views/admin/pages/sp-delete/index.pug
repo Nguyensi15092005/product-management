@@ -2,6 +2,7 @@ extends ../../layout/default.pug
 include ../../mixin/search-form
 include ../../mixin/pagination.pug
 include ../../mixin/moment.pug
+include ../../mixin/form-change-multi.pug
 
 
 
@@ -13,14 +14,21 @@ block main
       .card-header Tìm kiếm sản phẩm
       .card-body 
         .row 
+          .col-8 
+            if(role.permissions.includes("del-products_delete") || role.permissions.includes("del-products_restore"))
+              +form-change-multiDel(`${prefixAdmin}/sp-delete/change-multi?_method=PATCH`)
           .col-4 
             +search-form(keyword)
 
         table(
           class="table table-hover table-sm"
+          checkbox-multi
         )
           thead 
             tr 
+              if(role.permissions.includes("del-products_delete") || role.permissions.includes("del-products_restore")) 
+                th 
+                  input(type="checkbox" name="checkall")
               th STT 
               th Hình ảnh
               th Tiêu đề
@@ -32,7 +40,14 @@ block main
           tbody
             each item, index in products
               tr  
-                td #{index +1}
+                if(role.permissions.includes("del-products_delete") || role.permissions.includes("del-products_restore"))
+                  td 
+                    input(
+                      type="checkbox"
+                      name="id"
+                      value=item.id
+                    )
+                td #{pagination.limitItems*(pagination.currentPage-1)+(index+1)}
                 td 
                   img(
                     src=item.thumbnail
@@ -88,5 +103,4 @@ block main
       id="form-delete-item"
       data-path=`${prefixAdmin}/sp-delete/delete`
     ) 
-
     script(src="/admin/js/sp-delete.js") 

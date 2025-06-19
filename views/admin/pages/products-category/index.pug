@@ -2,7 +2,6 @@ extends ../../layout/default.pug
 include ../../mixin/filter-status.pug
 include ../../mixin/search-form.pug
 include ../../mixin/alert.pug
-include ../../mixin/pagination.pug
 include ../../mixin/sort.pug
 include ../../mixin/form-change-multi.pug
 include ../../mixin/table-tree.pug
@@ -63,11 +62,6 @@ block main
               th Hành động
           tbody
             +table-tree(category)
-
-
-    nav 
-      +pagination(pagination)
-
 
     form(
       action=""

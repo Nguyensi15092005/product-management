@@ -7,11 +7,11 @@ block main
 
   +alert-success(2000)
   .container
-    .row 
-      .col-12 
+    .row
+      .col-12.mt-2
         +box-head("Giỏ hàng")
     
-      .col-12
+      .col-12.cart-shopping.my-3
         table(
           class="table table-hover"
           checkbox-multi
@@ -60,9 +60,9 @@ block main
             else 
               p Giỏ hàng tống
         if(cartDetail.products.length > 0)
-          h4(class="text-right") Tổng đơn hàng: #{cartDetail.totalPrice}$
+          h4(class="text-right") Tổng đơn hàng: <b>#{cartDetail.totalPrice}$</b>
           div(class="text-right mt-4")
-            a(href="/checkout" class="btn btn-success") Thanh toán
+            a(href="/checkout" class="btn btn-success pay" ) Thanh toán
 
       script(src="/js/cart.js")
       

@@ -1,11 +1,17 @@
 mixin article-item(item)
-    .col-4.mb-3 
-        .product-item 
-            a(href=`/articles/detail/${item.slug}`)
+    .col-12.mb-3 
+        .article-item 
+            a(href=`/articles/detail/${item.slug}` class="d-flex align-items-center")
                 .inner-img  
                     img(src=item.thumbnail, alt=item.title)
                     if(item.featured=="1")
                         .inner-featured Nổi bật
-                .inner-content
-                    h3.inner-title  #{item.title}
-                    .inner-article_content !{item.content}
+                .inner-content.p-2
+                    h3.inner-title.text-center  #{item.title}
+                    .inner-article_content 
+                        if (item.content.length > 100)
+                            p !{item.content.slice(0, 100) + '...' }
+                        else
+                            p !{item.content}
+                    .inner-article_xemthem Xem thêm >>>
+ 

@@ -1,0 +1,80 @@
+extends ../../layout/default.pug
+include ../../mixin/alert.pug
+
+block main 
+  if(role.permissions.includes("sliders_edit"))
+    +alert-error(5000)
+
+    h1(class="mb-4") Chỉnh sửa Slider
+    form(
+      action=`${prefixAdmin}/sliders/edit/${slider.id}?_method=PATCH`
+      id="form-edit-sliders"
+      method="POST"
+      enctype="multipart/form-data"
+    ) 
+      div(class="form-group")
+        label(for="title") Tên Sliders
+        input(
+          type="text"
+          id="title"
+          name="title"
+          class="form-control"
+          value=slider.title
+          required
+        )
+      div(
+        class="form-group"
+        upload-image
+        )
+        label(for="image") Ảnh
+        input(
+          type="file"
+          class="form-control-file"
+          id="image"
+          name="image"
+          accept="image/*"
+          upload-image-input
+        )
+        img(
+          src=slider.image
+          class="image-preview"
+          upload-image-preview
+        )
+        button(
+          close-image
+          class="close-image"
+        ) x
+      div(class="form-group")
+        label(for="url") Url
+        input(
+          type="text"
+          class="form-control"
+          id="url"
+          name="url"
+          value=slider.url
+        )
+      div(class="form-group form-check form-check-inline")
+        input(
+          type="radio"
+          class="form-check-input"
+          id="statusActive"
+          name="status"
+          value="active"
+          checked=(slider.status == "active" ? true : false)
+        )
+        label(for="statusActive" class="form-check-label") Hoạt động 
+      div(class="form-group form-check form-check-inline")
+        input(
+          type="radio"
+          class="form-check-input"
+          id="statusInactive"
+          name="status"
+          value="inactive"
+          checked=(slider.status == "inactive" ? true : false)
+        )
+        label(for="statusInactive" class="form-check-label") Dừng hoạt động
+      div(class="form-group")
+        button(
+          type="submit"
+          class="btn btn-primary"
+        ) Cập nhật

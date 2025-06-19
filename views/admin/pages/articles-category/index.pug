@@ -4,6 +4,8 @@ include ../../mixin/form-change-multi.pug
 include ../../mixin/alert.pug
 include ../../mixin/filter-status.pug
 include ../../mixin/search-form.pug
+include ../../mixin/pagination.pug
+
 
 block main 
   h2 Danh mục bài viết
@@ -52,7 +54,6 @@ block main
             th Hành động
         tbody
           +articleTable-tree(articles)
-
     
   form(
     action=""

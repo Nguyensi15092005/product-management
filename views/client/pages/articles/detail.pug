@@ -4,7 +4,7 @@ include ../../mixins/box-head.pug
 block main 
   .article-detail 
     .container.my-3 
-      .row 
-        .col-12
+      .row.d-flex.justify-content-center
+        .col-10.text-center
           h3(class="inner-title") #{article.title}
           .inner-content !{article.content}

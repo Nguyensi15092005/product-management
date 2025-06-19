@@ -44,3 +44,6 @@
       if(role.permissions.includes("user_manage_view"))
         li 
           a(href=`${prefixAdmin}/user`) Quản lý user
+      if(role.permissions.includes("sliders_view"))
+        li 
+          a(href=`${prefixAdmin}/sliders`) Quản lý sliders

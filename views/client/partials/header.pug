@@ -1,15 +1,27 @@
 include ../mixins/sub-menu.pug
 
-header(class="header")
-
-
-  .container 
-    .row.align-items-center 
-      .col-2 
+.header
+  .container.inner-header
+    .row.align-items-center
+      .col-1 
         .inner-logo 
           a(href="/")
             img(src=settingGeneral.logo alt=settingGeneral.websiteName)
       .col-4 
+        .inner-menu
+          ul 
+            li 
+              a(href="/") <i class="fa-solid fa-house"></i> Trang Chủ
+            li(class="sub-menu") 
+              -const pathProduct = "/products"
+              a(href=pathProduct) <i class="fa-solid fa-box-open"></i> Sản Phẩm 
+
+              +sub-menu(layoutproduct, pathProduct)
+            li(class="sub-menu") 
+              -const pathArticle = "/articles"
+              a(href=pathArticle) <i class="fa-solid fa-newspaper fa-fw"></i>  Blogs 
+              +sub-menu(layoutarticle, pathArticle)
+      .col-3 
         .inner-search 
           form(
             action="/search"
@@ -26,36 +38,24 @@ header(class="header")
               button(
                 type="submit"
                 class="btn btn-primary"
-              ) Tìm
-      .col-6 
+              ) <i class="fa-solid fa-magnifying-glass"></i>
+      .col-4 
         .inner-menu 
           ul  
             li 
-              a(href="/") Trang Chủ
-            li(class="sub-menu") 
-              -const pathProduct = "/products"
-              a(href=pathProduct) Sản Phẩm 
-
-              +sub-menu(layoutproduct, pathProduct)
-            li(class="sub-menu") 
-              -const pathArticle = "/articles"
-              a(href=pathArticle) Blog 
-              +sub-menu(layoutarticle, pathArticle)
-
-            li 
-              a(href="/cart") 
-                i(class="fa-solid fa-cart-plus") Giỏ hàng (#{miniCart ? miniCart.totalQuantity : 0})
+              a(href="/cart" class="cart" ) 
+                <i class="fa-solid fa-cart-plus"></i> (#{miniCart ? miniCart.totalQuantity : 0})
             if(user)
+              //- li 
+              //-   a(href="/chat") Chat 
+              //- li 
+              //-   a(href="/userSocket/friends") Bạn bè
+              //- li 
+              //-   a(href="/rooms-chat") Phòng chát
               li 
-                a(href="/chat") Chat 
-              li 
-                a(href="/userSocket/friends") Bạn bè
-              li 
-                a(href="/rooms-chat") Phòng chát
+                a(href="/user/infor") <i class="fa-solid fa-circle-user"></i> #{user.fullName}
               li
                 a(href="/user/logout") Đăng Xuất
-              li 
-                a(href="/user/infor") #{user.fullName}
             else
               li 
                 a(href="/user/register") Đăng ký 

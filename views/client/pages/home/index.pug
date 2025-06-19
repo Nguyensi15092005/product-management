@@ -6,9 +6,39 @@ include ../../mixins/product-layout.pug
 
 block main
   +alert-success(2000)
-  .section-products-featured.my-5
-    .container.my-3 
-      .row 
+  .section-products-featured
+    .container 
+      .row  
+        .col-8.pr-1
+          div(id="carouselExampleInterval" class="carousel slide" data-ride="carousel")
+            div(class="carousel-inner")
+              each item, index in sliders
+                if(index === 0)
+                  a(href=item.url class="carousel-item active" data-interval="10000")
+                    img(class="d-block w-100 inner-image-slider" src=item.image alt=item.title)
+                else
+                  a(href=item.url class="carousel-item" data-interval="10000")
+                    img(class="d-block w-100 inner-image-slider" src=item.image alt=item.title)
+
+            button(class="carousel-control-prev" type="button" data-target="#carouselExampleInterval" data-slide="prev")
+              span(class="carousel-control-prev-icon" aria-hidden="true")
+              span(class="sr-only") Previous
+
+            button(class="carousel-control-next" type="button" data-target="#carouselExampleInterval" data-slide="next")
+              span(class="carousel-control-next-icon" aria-hidden="true")
+              span(class="sr-only") Next
+
+        .col-4.inner-image-right.pl-1
+          img(class="inner-image-right-slider" src=settingGeneral.image_slider_right_top, alt="")
+          img(class="inner-image-right-slider" src=settingGeneral.image_slider_right_bottom, alt="")
+
+      .row.mt-2.mb-4
+        .col-12.d-flex.align-items-center
+          .inner-left-banner
+            span Liên hệ Shop:
+          .inner-animation-banner
+            p Store tại đia chỉ: #{settingGeneral.addressText} (Zalo: #{settingGeneral.zalo}) .
+      .row.mt-3
         .col-12 
           +box-head("Sản phẩm nổi bật")
 

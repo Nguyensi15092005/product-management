@@ -9,31 +9,31 @@ block main
     .container.my-3 
       .row 
         .col-6 
-            if(product.thumbnail)
-              div(class="mb-4 inner-img")  
-                img(
-                  src=product.thumbnail
-                )
+          if(product.thumbnail)
+            div(class="mb-4 inner-img-detail")  
+              img(
+                src=product.thumbnail
+              )
 
-        .col-6
+        .col-6.py-3
           if(product.title)
-            h1(class="mb-4 inner-title") #{product.title}
+            h1(class="mb-4 inner-title-detail") #{product.title}
 
           if(product.category)
-            div(class="mb-4 inner-category") Danh mục:  
+            div(class="mb-4 inner-category-detail") Danh mục:  
               a(href=`/products/${product.category.slug}`) #{product.category.title}
 
           if(product.priceNew)
-            div(class="mb-4 inner-priceNew") #{product.priceNew}$
+            div(class="mb-4 inner-priceNew-detail") Giá hiện tại: <b>#{product.priceNew}$</b>
 
           if(product.price)
-            div(class="mb-4 inner-price") <del>#{product.price}$</del>
+            div(class="mb-4 inner-price-detail") Giá khi chưa giảm: <del>#{product.price}$</del>
 
           if(product.discountPercentage)
-            div(class="mb-4 inner-discountPercentage") Giảm giá: <span>#{product.discountPercentage}%</span>
+            div(class="mb-4 inner-discountPercentage-detail") Giảm giá: <span>#{product.discountPercentage}%</span>
           
           if(product.stock)
-            div(class="mb-4 inner-stock") Còn lại: <span>#{product.stock}</span> sản phẩm
+            div(class="mb-4 inner-stock-detail") Còn lại: <span>#{product.stock}</span> sản phẩm
 
           form(
             action=`/cart/add/${product.id}`
@@ -52,11 +52,10 @@ block main
               type="submit"
               class="btn btn-success btn-block"
             ) Thêm vào giỏ hàng
-    hr
 
     .container.my-5 
       .row 
         .col-12
           +box-head("Mô trả sản phẩm")
-          .inner-description !{product.description}
+          .inner-description-detail.px-3 !{product.description}
             

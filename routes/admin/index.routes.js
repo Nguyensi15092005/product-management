@@ -14,6 +14,7 @@ const articleRouter = require("./acticles.route");
 const settingGeneralRouter = require("./settings-general.route");
 const orderRouter = require("./orders.route");
 const UserRouter = require("./user.route");
+const SliderRouter = require("./sliders.route");
 
 
 
@@ -50,6 +51,8 @@ module.exports = (app) => {
     app.use(Admin + '/order', authMiddleware.requireAuth, orderRouter);
 
     app.use(Admin + '/user', authMiddleware.requireAuth, UserRouter);
+
+    app.use(Admin + '/sliders', authMiddleware.requireAuth, SliderRouter);
 
 
 

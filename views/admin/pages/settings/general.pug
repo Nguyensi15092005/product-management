@@ -64,14 +64,14 @@ block main
         value = (settingGeneral? settingGeneral.email : "")
         )
     div(class="form-group")
-      label(for="addres") Địa chỉ
+      label(for="addressText") Địa chỉ
       input(
         type="text"
-        id="addres"
-        name="addres"
+        id="addressText"
+        name="addressText"
         class="form-control"
         required
-        value = (settingGeneral? settingGeneral.addres : "")
+        value = (settingGeneral? settingGeneral.addressText : "")
         )
 
     div(class="form-group")
@@ -114,5 +114,50 @@ block main
         required
         value = (settingGeneral? settingGeneral.copyright : "")
       )
+    div(
+      class="form-group"
+      upload-image
+      )
+      label(for="image_slider_right_top") Ảnh Slider phụ 1
+      input(
+        type="file"
+        class="form-control-file"
+        id="image_slider_right_top"
+        name="image_slider_right_top"
+        accept="image/*"
+        upload-image-input
+      )
+      img(
+        src=(settingGeneral ? settingGeneral.image_slider_right_top : "")
+        class="image-preview"
+        upload-image-preview
+      )
+      button(
+        close-image
+        class="close-image"
+      ) x
+
+    div(
+      class="form-group"
+      upload-image
+      )
+      label(for="image_slider_right_bottom") Ảnh Slider phụ 2
+      input(
+        type="file"
+        class="form-control-file"
+        id="image_slider_right_bottom"
+        name="image_slider_right_bottom"
+        accept="image/*"
+        upload-image-input
+      )
+      img(
+        src=(settingGeneral ? settingGeneral.image_slider_right_bottom : "")
+        class="image-preview"
+        upload-image-preview
+      )
+      button(
+        close-image
+        class="close-image"
+      ) x
     div(class="form-group")
       button(class="btn btn-primary") Cập nhật

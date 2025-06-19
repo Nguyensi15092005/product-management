@@ -6,9 +6,9 @@ block main
   +alert-success(3000)
   +alert-error(3000)
   .container.my-5
-    .row.justify-content-center
-      .col-8 
-        h2(class="text-center") Đăng ký tài khoản 
+    .row.justify-content-center.register
+      .col-5.background_user 
+        h2(class="text-center") Đăng ký
         form(
           action="/user/register"
           method="POST"
@@ -19,7 +19,7 @@ block main
               type="text"
               name="fullName"
               id="fullName"
-              class="form-control"
+              class="input form-control"
               required 
             )
           div(class="form-group")
@@ -28,7 +28,7 @@ block main
               type="email"
               name="email"
               id="email"
-              class="form-control"
+              class="input form-control"
               required 
             ) 
           div(class="form-group")
@@ -37,7 +37,7 @@ block main
               type="password"
               name="password"
               id="password"
-              class="form-control"
+              class="input form-control"
               required 
             )
           div(class="form-group")

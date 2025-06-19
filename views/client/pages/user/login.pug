@@ -6,8 +6,8 @@ block main
   +alert-error(3000)
   .container.my-5
     .row.justify-content-center
-      .col-8 
-        h2(class="text-center") Đăng nhập tài khoản
+      .col-5.background_user
+        h2(class="text-center") Đăng nhập
         form(
           action="/user/login"
           method="POST"
@@ -30,7 +30,7 @@ block main
               class="form-control"
               required 
             )
-          a(href="/user/password/forgot") Quên mật khẩu 
+          a(href="/user/password/forgot" class="text-fogot") Quên mật khẩu 
           div(class="form-group")
             button(
               type="submit"

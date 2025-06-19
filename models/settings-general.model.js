@@ -5,11 +5,13 @@ const settingGeneralSchema = new mongoose.Schema({
     logo: String, 
     phone: String,
     email: String,
-    addres: String,
+    addressText: String,
     facebook: String ,
     zalo: String,
     tiktok: String, 
-    copyright: String
+    copyright: String,
+    image_slider_right_top: String, 
+    image_slider_right_bottom: String,
 },
     {
         timestamps: true

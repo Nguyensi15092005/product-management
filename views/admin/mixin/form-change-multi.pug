@@ -42,4 +42,25 @@ mixin form-change-multiOder(patch)
                 )
             button(type="submit" class="btn btn-primary") Áp dụng
 
+mixin form-change-multiDel(patch)
+    form(
+        action=patch
+        method="POST"
+        form-change-multi
+    ) 
+        .d-flex.align-items-start
+            .form-group
+                select(name="type" class="form-control") 
+                    option(disabled selected) --Chọn hành động--
+                    option(value="delete-all") Xóa tất cả
+                    option(value="restore-all") Khôi phục tất cả
+            .form-group 
+                input(
+                    type="text"
+                    name="ids"
+                    value=""
+                    class="form-control d-none"
+                )
+            button(type="submit" class="btn btn-primary") Áp dụng
+
 

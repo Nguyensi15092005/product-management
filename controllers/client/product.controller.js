@@ -14,7 +14,6 @@ module.exports.index = async (req, res) => {
     }).sort({ position: "desc" });//lấy data
 
     const newProducts = productHelper.priceNewProduct(products);
-
     // truền data qua controller để vẽ ra giao diện
     res.render("client/pages/products/index", {
         pageTitle: "Danh sach san pham",

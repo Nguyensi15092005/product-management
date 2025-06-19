@@ -28,15 +28,16 @@ module.exports.index = async (req, res) => {
     }
 
     // Phần phân trang pagination
-    const countPage = await ProductCategory.countDocuments(find);
-    let objectPagenation = paginationHelper(
-        {
-            currentPage: 1,
-            limitItems: 100
-        },
-        req.query,
-        countPage
-    )
+    // const countPage = await ProductCategory.countDocuments(find);
+    // let objectPagenation = paginationHelper(
+    //     {
+    //         currentPage: 1,
+    //         limitItems: 6
+
+    //     },
+    //     req.query,
+    //     countPage
+    // )
 
 
     // Sort
@@ -52,8 +53,8 @@ module.exports.index = async (req, res) => {
 
     const productsCategory = await ProductCategory.find(find)
         .sort(sort)
-        .limit(objectPagenation.limitItems)
-        .skip(objectPagenation.skip);
+        // .limit(objectPagenation.limitItems)
+        // .skip(objectPagenation.skip);
 
     for (const category of productsCategory) {
         // lấy ra người tạo
@@ -83,7 +84,7 @@ module.exports.index = async (req, res) => {
         category: newcategory,
         filterStatus: filterStatus,
         keyword: objectSearch.keyword,
-        pagination: objectPagenation
+        // pagination: objectPagenation
     });
 }
 

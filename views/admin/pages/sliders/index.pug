@@ -1,0 +1,107 @@
+extends ../../layout/default.pug
+include ../../mixin/alert.pug
+include ../../mixin/moment.pug
+
+block main
+  if(role.permissions.includes("sliders_view")) 
+
+    +alert-success("5000")
+    +alert-error("5000")
+
+    h2 Danh sách sliders
+
+    .card.mb-3 
+      .card-header Danh sách
+      .card-body
+        table(
+          class="table table-hover table-sm"
+        )
+          .row  
+            .col-4
+              if(role.permissions.includes("sliders_create")) 
+                a(
+                  href=`${prefixAdmin}/sliders/create`
+                  class="btn btn-outline-success active"
+                ) +Thêm mới
+          
+          thead 
+            tr
+              th STT
+              th Hình ảnh
+              th status
+              th Người tạo
+              th hành động
+          tbody
+            each item, index in sliders
+              tr
+                td #{index + 1}
+                td 
+                  img(
+                      src=item.image 
+                      alt=item.title
+                      width="100px" 
+                      height="auto"
+                    )
+                td  
+                  if(role.permissions.includes("products_edit"))
+                    if(item.status == "active")
+                      a(
+                        href="javascript:;" 
+                        class="badge badge-success"
+                        button-change-status 
+                        data-status=item.status 
+                        data-id=item.id
+                      ) Hoạt động
+                    else 
+                      a(
+                        href="javascript:;" 
+                        class="badge badge-danger"
+                        button-change-status 
+                        data-status=item.status 
+                        data-id=item.id
+                      ) Dừng hoạt động
+                  else 
+                    if(item.status == "active")
+                      a(
+                          href="#" 
+                          class="badge badge-success"
+                      ) Hoạt động
+                    else 
+                      a(
+                          href="#" 
+                          class="badge badge-danger"
+                      ) Dừng hoạt động
+                td 
+                  p #{item.account_Fullname}
+                  p
+                    +formatDate(item.createdBy.createdAt)
+                td 
+                  if(role.permissions.includes("sliders_edit"))
+                    a(
+                      href=`${prefixAdmin}/sliders/edit/${item.id}`
+                      class="btn btn-warning"
+                    ) Sửa
+
+                  if(role.permissions.includes("sliders_delete"))
+                    button(
+                      class="btn btn-danger"
+                      button-delete
+                      data-id=item.id
+                    ) Xóa
+  
+    form(
+      action=""
+      method="POST"
+      id="form-change-status"
+      data-path=`${prefixAdmin}/sliders/change-status`
+    ) 
+
+    form(
+      action=""
+      method="POST"
+      id="form-delete-item"
+      data-path=`${prefixAdmin}/sliders/delete`
+    ) 
+
+    script(src="/admin/js/products.js") 
+

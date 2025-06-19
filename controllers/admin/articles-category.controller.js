@@ -4,6 +4,8 @@ const systemConfig = require("../../config/system");
 const createTreHelper = require("../../helper/createTree");
 const filterStatusHelper = require("../../helper/filterStatus");
 const searchHelper = require("../../helper/search");
+const paginationHelper = require("../../helper/pagination");
+
 
 module.exports.index = async (req, res) => {
   const filterStatus = filterStatusHelper(req.query)
@@ -23,8 +25,22 @@ module.exports.index = async (req, res) => {
     find.title = objectSearch.regex
   }
 
+  // pagination page phần số lượng sản phẩm mỗi trang
+  // const countPage = await ArticelsCategory.countDocuments(find);
+  // let objectPagenation = paginationHelper(
+  //   {
+  //     currentPage: 1,
+  //     limitItems: 3
+  //   },
+  //   req.query,
+  //   countPage
+  // )
+  // end pagination page
+
 
   const articles = await ArticelsCategory.find(find);
+    // .limit(objectPagenation.limitItems)
+    // .skip(objectPagenation.skip);
 
   for (const article of articles) {
     // Lấy ta người tạo
@@ -53,6 +69,7 @@ module.exports.index = async (req, res) => {
     articles: newArticles,
     filterStatus: filterStatus,
     keyword: objectSearch.keyword,
+    // pagination: objectPagenation
   })
 }
 
@@ -83,7 +100,7 @@ module.exports.createPost = async (req, res) => {
       account_id: res.locals.user.id,
       createdAt: new Date()
     }
-    
+
 
     const articles = new ArticelsCategory(req.body);
     await articles.save();

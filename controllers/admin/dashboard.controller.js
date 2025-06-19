@@ -4,6 +4,7 @@ const ActicleCategory = require("../../models/articles-category.model");
 const Acticle= require("../../models/articles.model");
 const Account = require("../../models/account.model");
 const User = require("../../models/users.model"); 
+const Slider = require("../../models/sliders.model")
 
 // [GET] /admin/dashboard
 module.exports.dashboard = async (req, res) => {
@@ -34,6 +35,11 @@ module.exports.dashboard = async (req, res) => {
             inactive: 0
         },
         user:{
+            total: 0,
+            active: 0,
+            inactive: 0
+        },
+        slider:{
             total: 0,
             active: 0,
             inactive: 0
@@ -109,6 +115,19 @@ module.exports.dashboard = async (req, res) => {
         status: "active"
     })
     statistic.user.inactive= await User.countDocuments({
+        deleted: false,
+        status: "inactive"
+    })
+
+    //slider 
+    statistic.slider.total= await Slider.countDocuments({
+        deleted: false,
+    })
+    statistic.slider.active= await Slider.countDocuments({
+        deleted: false,
+        status: "active"
+    })
+    statistic.slider.inactive= await Slider.countDocuments({
         deleted: false,
         status: "inactive"
     })

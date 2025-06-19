@@ -266,6 +266,31 @@ block main
             each item in roles 
               td(class="text-center")
                 input(type="checkbox")
+
+          //- Quản lý Sliders
+          tr 
+            td(colspan="4")
+              b Quản lý Slider
+          tr(data-name="sliders_view")
+            td Xem 
+            each item in roles 
+              td(class="text-center")
+                input(type="checkbox")
+          tr(data-name="sliders_create")
+            td Thêm mới 
+            each item in roles 
+              td(class="text-center")
+                input(type="checkbox")
+          tr(data-name="sliders_edit")
+            td Chỉnh sửa 
+            each item in roles 
+              td(class="text-center")
+                input(type="checkbox")
+          tr(data-name="sliders_delete")
+            td Xóa 
+            each item in roles 
+              td(class="text-center")
+                input(type="checkbox")
           
 
     else 

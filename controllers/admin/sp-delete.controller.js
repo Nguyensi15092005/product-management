@@ -65,3 +65,32 @@ module.exports.restoreItem = async (req, res) => {
 
     res.redirect('back');
 }
+
+// [PATCH] /admin/sp-delete/change-multi
+module.exports.changeMulti = async (req, res) => {
+    const type = req.body.type;
+    const ids = req.body.ids.split(", ");
+
+    switch (type) {
+        case "delete-all":
+            await Product.deleteMany({ _id: { $in: ids } });
+            req.flash("success", `Bạn đã xóa thành công ${ids.length} sản phẩm`);
+            break;
+        case "restore-all":
+            await Product.updateMany({ _id: { $in: ids } }, {
+                deleted: false,
+                deletedBy: {
+                    account_id: res.locals.user.id,
+                    deletedAt: new Date()
+                }
+            });
+            req.flash("success", `Bạn đã khôi phục thành công ${ids.length} sản phẩm`);
+            break;
+        default:
+            break;
+    }
+
+
+    res.redirect('back');
+
+}
