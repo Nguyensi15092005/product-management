@@ -64,7 +64,7 @@ block main
               th Hình ảnh
               th Tiêu đề
               th Giá
-              th Vị trí
+              //- th Vị trí
               th Trạng thái
               th Người tạo
               th Người cập nhật
@@ -88,15 +88,15 @@ block main
                     height="auto"
                   )
                 td #{item.title}
-                td #{item.price}$
-                td 
-                  input(
-                    type="number"
-                    value=item.position 
-                    style="width:50px"
-                    min="1"
-                    name="position"
-                    )
+                td #{item.price.toLocaleString('vi-VN', { style: 'currency', currency: 'VND' })}
+                //- td 
+                //-   input(
+                //-     type="number"
+                //-     value=item.position 
+                //-     style="width:50px"
+                //-     min="1"
+                //-     name="position"
+                //-     )
                 td
                   if(role.permissions.includes("products_edit"))
                     if(item.status == "active")

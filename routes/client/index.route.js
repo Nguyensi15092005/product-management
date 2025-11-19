@@ -16,6 +16,7 @@ const userRouter = require("./users.route");
 const chatRouter = require("./chat.route");
 const userSocketRouter = require("./userSocket.route");
 const roomchatRouter = require("./rooms-chat.route");
+const paymentRouter = require("./payment.route");
 
 
 module.exports = (app)=>{
@@ -40,6 +41,8 @@ module.exports = (app)=>{
     app.use('/checkout', checkoutRouter);
 
     app.use('/user', userRouter);
+
+    app.use('/payment', paymentRouter)
 
     app.use('/chat',authMiddleware.requireAuth, chatRouter);
 

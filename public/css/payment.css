@@ -1,0 +1,73 @@
+.btn-orange{
+    text-decoration: none;
+}
+/* Payment error */
+.payment-failed {
+    position: relative;
+    top: 100px;
+    max-width: 420px;
+    margin: auto;
+    background: #fff;
+    border-radius: 20px;
+    padding: 40px 30px;
+    text-align: center;
+    box-shadow: 0 6px 20px rgba(255, 94, 0, 0.2);
+    border-top: 5px solid #ff6a00;
+}
+.payment-success {
+    position: relative;
+    top: 100px;
+    max-width: 420px;
+    margin: auto;
+    background: #fff;
+    border-radius: 20px;
+    padding: 40px 30px;
+    text-align: center;
+    box-shadow: 0 6px 20px rgba(255, 94, 0, 0.2);
+    border-top: 5px solid #ff6a00;
+}
+.payment-success h2{
+    color: #ff6a00;
+}
+
+.payment-failed .icon {
+    font-size: 80px;
+    color: #ff6a00;
+    margin-bottom: 20px;
+    animation: pulse 1.5s infinite;
+}
+
+@keyframes pulse {
+    0% { transform: scale(1); opacity: 1; }
+    50% { transform: scale(1.1); opacity: 0.8; }
+    100% { transform: scale(1); opacity: 1; }
+}
+
+.payment-failed h2 {
+    color: #ff6a00;
+    font-weight: 700;
+    margin-bottom: 10px;
+}
+
+.payment-failed p {
+    color: #555;
+    font-size: 15px;
+    margin-bottom: 25px;
+}
+
+.btn-orange {
+    background-color: #ff6a00;
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    padding: 10px 20px;
+    transition: all 0.3s ease;
+}
+
+.btn-orange:hover {
+    background-color: #ffffff;
+    color:#ff6a00;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 10px rgba(255, 94, 0, 0.3);
+}
+/* end Payment error */

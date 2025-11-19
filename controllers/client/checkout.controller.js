@@ -63,11 +63,13 @@ module.exports.order = async (req, res) => {
     const orderInfo = {
         cart_id: cartId,
         userInfo: userInfo,
-        products: products
+        products: products,
+
     }
 
     const order = new Order(orderInfo);
     await order.save();
+    console.log(order);
 
 
     await Carts.updateOne({
@@ -76,8 +78,7 @@ module.exports.order = async (req, res) => {
         products: []
     });
 
-
-    res.redirect(`/checkout/success/${order.id}`);
+    res.redirect(`/payment/${order.id}`);
 
 }
 
@@ -87,8 +88,6 @@ module.exports.success = async (req, res) => {
     const order = await Order.findOne({
         _id: req.params.orderId
     })
-
-
 
     for (const product of order.products) {
         const productInfo = await Products.findOne({

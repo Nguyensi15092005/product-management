@@ -29,21 +29,21 @@ block main
                   td 
                     img(src=item.productInfo.thumbnail, alt=item.productInfo.title width="80px")
                   td #{item.productInfo.title}
-                  td #{item.productInfo.priceNew}$
+                  td #{item.productInfo.priceNew.toLocaleString('vi-VN', { style: 'currency', currency: 'VND' })}
                   td #{item.quantity} 
-                  td #{item.totalPrice}$
+                  td #{item.totalPrice.toLocaleString('vi-VN', { style: 'currency', currency: 'VND' })}
             else 
               tr 
               td(colspan="7" class="text-center") KHông có sản phẩm nào 
         if(cartDetail.products.length > 0)
-          h4(class="text-right") Tổng đơn hàng: #{cartDetail.totalPrice}$
+          h4(class="text-right") Tổng đơn hàng: #{cartDetail.totalPrice.toLocaleString('vi-VN', { style: 'currency', currency: 'VND' })}
 
     if(cartDetail.products.length > 0)
       .row 
         .col-12 
           .card.p-4.my-4 
             form(
-              action="/checkout/order"
+              action="/payment/create"
               method="POST"
             ) 
               div(class="form-group")

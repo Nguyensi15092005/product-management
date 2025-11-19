@@ -34,7 +34,7 @@ module.exports.index = async (req, res) => {
     let objectPagenation = paginationHelper(
       {
         currentPage: 1,
-        limitItems: 4
+        limitItems: 10
       },
       req.query,
       countPage
@@ -114,12 +114,12 @@ module.exports.createPost = async (req, res) => {
   const permissions = res.locals.role.permissions;
   if (permissions.includes("articles_create")) {
     const count = await Articles.countDocuments();
-    if (req.body.position == "") {
-      req.body.position = count + 1;
-    }
-    else {
-      req.body.position = parseInt(req.body.position);
-    }
+    // if (req.body.position == "") {
+    //   req.body.position = count + 1;
+    // }
+    // else {
+    //   req.body.position = parseInt(req.body.position);
+    // }
 
     req.body.createdBy = {
       account_id: res.locals.user.id

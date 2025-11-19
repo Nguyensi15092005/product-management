@@ -39,7 +39,7 @@ module.exports.index = async (req, res) => {
     let objectPagenation = paginationHelper(
         {
             currentPage: 1,
-            limitItems: 6
+            limitItems: 10
         },
         req.query,
         countPage
@@ -84,7 +84,7 @@ module.exports.index = async (req, res) => {
 
     res.render("admin/pages/products/index", {
         pageTitle: "Danh sách sản phẩm",
-        products: products,
+        products: products.reverse(),
         filterStatus: filterStatus,
         keyword: objectSearch.keyword,
         pagination: objectPagenation
@@ -218,18 +218,17 @@ module.exports.createPost = async (req, res) => {
         req.body.discountPercentage = parseInt(req.body.discountPercentage)
         req.body.stock = parseInt(req.body.stock)
 
-        if (req.body.position == "") {
-            const countProduct = await Product.countDocuments();
-            req.body.position = countProduct + 1
-        }
-        else {
-            req.body.position = parseInt(req.body.position)
-        }
+        // if (req.body.position == "") {
+        //     const countProduct = await Product.countDocuments();
+        //     req.body.position = countProduct + 1
+        // }
+        // else {
+        //     req.body.position = parseInt(req.body.position)
+        // }
 
         req.body.createdBy = {
             account_id: res.locals.user.id
         }
-        console.log(req.body)
         const products = new Product(req.body)
 
         await products.save(req.body)
@@ -283,7 +282,7 @@ module.exports.editPatch = async (req, res) => {
     req.body.price = parseInt(req.body.price)
     req.body.discountPercentage = parseInt(req.body.discountPercentage)
     req.body.stock = parseInt(req.body.stock)
-    req.body.position = parseInt(req.body.position)
+    // req.body.position = parseInt(req.body.position)
 
     if (req.file) {
         req.body.thumbnail = `/uploads/${req.file.filename}`
@@ -315,7 +314,6 @@ module.exports.detail = async (req, res) => {
         }
 
         const product = await Product.findOne(find);
-        console.log(product)
 
         res.render("admin/pages/products/detail", {
             pageTitle: product.title,

@@ -47,14 +47,15 @@ block main
             th STT
             th Hình ảnh
             th Tiêu đề
-            th Vị trí
+            //- th Vị trí
             th Trạng thái
             th Người tạo
             th Người chỉnh sửa
             th Hành động
         tbody
           +articleTable-tree(articles)
-    
+  nav 
+    +pagination(pagination)
   form(
     action=""
     method="POST"

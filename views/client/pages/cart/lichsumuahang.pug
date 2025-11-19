@@ -1,0 +1,28 @@
+extends ../../layout/default.pug
+include ../../mixins/box-head.pug
+block main
+  .container
+    .row
+      .col-12.mt-2
+        +box-head("Lịch sử mua hàng")
+
+      .col-12.mt2
+        if(order.length > 0)
+          each item in order 
+            .box-order 
+              each i in item.products
+                .order-item.d-flex 
+                  img(src=i.thumbnail, alt=i.title width="100px")
+                  .order-content 
+                    p(class="title") #{i.title}
+                    p(class="quantity") x#{i.quantity}
+                  .order-price #{i.price.toLocaleString('vi-VN', { style: 'currency', currency: 'VND' })}
+                .order-ngancach
+              
+              .order-total Thành tiền:  <span>#{item.totalPrice.toLocaleString('vi-VN', { style: 'currency', currency: 'VND' })}</span>
+              .btn-end-order
+                button(class="btn-order") Mua lại
+        else 
+          .order-none Bạn chưa có đơn hàng nào từ chúng tôi nhanh tay vào mua hàng nào.
+          .btn-center-home
+            a(class="btn-order" href="/") Mua ngay

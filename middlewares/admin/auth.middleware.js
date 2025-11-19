@@ -19,7 +19,6 @@ module.exports.requireAuth = async (req, res, next) => {
 
       res.locals.user = user; //biến troàn cục trả về cho file pug
       res.locals.role = role;
-
       next();
     }
   }

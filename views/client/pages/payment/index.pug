@@ -1,0 +1,12 @@
+extends ../../layout/default.pug
+
+block main 
+    .container 
+        .row 
+            .col-12.mt-3 
+                form(
+                    action="/payment/create"
+                    method="post"
+                )
+                    input(type="hidden" value=order) 
+                    button(type="submit" name="orderId" class="btn-order") Thanh toán ngay

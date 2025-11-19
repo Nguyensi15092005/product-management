@@ -5,6 +5,7 @@ include ../../mixin/alert.pug
 include ../../mixin/sort.pug
 include ../../mixin/form-change-multi.pug
 include ../../mixin/table-tree.pug
+include ../../mixin/pagination.pug
 
 block main
   if(role.permissions.includes("products-category_view"))
@@ -55,14 +56,15 @@ block main
               th STT
               th Hình ảnh
               th Tiêu đề
-              th Vị trí
+              //- th Vị trí
               th Trạng thái
               th Người tạo
               th Người chỉnh sửa
               th Hành động
           tbody
             +table-tree(category)
-
+    nav 
+      +pagination(pagination)
     form(
       action=""
       method="POST"

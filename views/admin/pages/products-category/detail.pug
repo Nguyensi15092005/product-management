@@ -32,11 +32,11 @@ block main
         else 
           span(class="badge badge-danger") Dừng hoạt động
 
-    if (productsCategory.position)
-      div(class="mb-4") Vị trí: <b>#{productsCategory.position}</b>
+    //- if (productsCategory.position)
+    //-   div(class="mb-4") Vị trí: <b>#{productsCategory.position}</b>
 
     if (productsCategory.description)
-      div(class="mb-4") #{productsCategory.description}
+      div(class="mb-4") !{productsCategory.description}
 
     if(role.permissions.includes("products-category_edit"))
       a(

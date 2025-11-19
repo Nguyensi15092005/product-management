@@ -3,7 +3,7 @@ include ../../mixin/filter-status.pug
 include ../../mixin/form-change-multi.pug
 include ../../mixin/pagination.pug
 include ../../mixin/alert.pug
-
+include ../../mixin/moment.pug
 
 block main 
   if(role.permissions.includes("order_view"))
@@ -32,6 +32,7 @@ block main
                 th Số lượng sản phẩm
                 th Tổng tiền
                 th Trạng thái
+                th Ngày đặt
                 th Hành động
             tbody 
               each item, index in order
@@ -45,7 +46,7 @@ block main
                   td #{pagination.limitItems*(pagination.currentPage-1)+(index+1)}
                   td #{item.userInfo.fullname}
                   td #{item.totalQuantity}
-                  td #{item.totalPrice}$
+                  td #{item.totalPrice.toLocaleString('vi-VN', { style: 'currency', currency: 'VND' })}
                   td
                     if(role.permissions.includes("order_edit"))
                       if item.status == "notcomfirm"
@@ -75,6 +76,9 @@ block main
                           href="#"
                           class="badge badge-success"
                         ) Đã xác nhận
+                  td  
+                    p
+                      +formatDateTime(item.createdAt)
                   td 
                     a(href=`${prefixAdmin}/order/detail/${item.id}` class="btn btn-success") chi tiết
                     a(href=`${prefixAdmin}/order/delete/${item.id}` class="btn btn-danger") Xóa

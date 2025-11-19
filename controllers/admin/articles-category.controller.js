@@ -26,15 +26,15 @@ module.exports.index = async (req, res) => {
   }
 
   // pagination page phần số lượng sản phẩm mỗi trang
-  // const countPage = await ArticelsCategory.countDocuments(find);
-  // let objectPagenation = paginationHelper(
-  //   {
-  //     currentPage: 1,
-  //     limitItems: 3
-  //   },
-  //   req.query,
-  //   countPage
-  // )
+  const countPage = await ArticelsCategory.countDocuments(find);
+  let objectPagenation = paginationHelper(
+    {
+      currentPage: 1,
+      limitItems: 5
+    },
+    req.query,
+    countPage
+  )
   // end pagination page
 
 
@@ -69,7 +69,7 @@ module.exports.index = async (req, res) => {
     articles: newArticles,
     filterStatus: filterStatus,
     keyword: objectSearch.keyword,
-    // pagination: objectPagenation
+    pagination: objectPagenation
   })
 }
 
@@ -89,13 +89,13 @@ module.exports.create = async (req, res) => {
 module.exports.createPost = async (req, res) => {
   const permissions = res.locals.role.permissions;
   if (permissions.includes("articles_create")) {
-    if (req.body.position == "") {
-      const count = await ArticelsCategory.countDocuments();
-      req.body.position = count + 1;
-    }
-    else {
-      req.body.position = parseInt(req.body.position);
-    }
+    // if (req.body.position == "") {
+    //   const count = await ArticelsCategory.countDocuments();
+    //   req.body.position = count + 1;
+    // }
+    // else {
+    //   req.body.position = parseInt(req.body.position);
+    // }
     req.body.createdBy = {
       account_id: res.locals.user.id,
       createdAt: new Date()
@@ -170,7 +170,7 @@ module.exports.edit = async (req, res) => {
 module.exports.editPatch = async (req, res) => {
   const id = req.params.id;
   console.log(req.body.position)
-  req.body.position = parseInt(req.body.position)
+  // req.body.position = parseInt(req.body.position)
 
 
   if (req.file) {

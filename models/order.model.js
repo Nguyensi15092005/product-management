@@ -25,6 +25,10 @@ const orderSchema = new mongoose.Schema({
         type: String,
         default: "notcomfirm"
     },
+    paymentStatus: {
+        type: Boolean,
+        default: false
+    },
     deleted: {
         type: Boolean,
         default: false

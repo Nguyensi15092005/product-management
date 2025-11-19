@@ -8,8 +8,8 @@ mixin product-item(item)
                         .inner-featured Nổi bật
                 .inner-content
                     h3.inner-title  #{item.title}
-                    .inner-price-new #{item.priceNew}$
-                    del(class="inner-price-old") #{item.price}$
+                    .inner-price-new #{item.priceNew.toLocaleString('vi-VN', { style: 'currency', currency: 'VND' })}
+                    del(class="inner-price-old") #{item.price.toLocaleString('vi-VN', { style: 'currency', currency: 'VND' })}
                     .inner-discount #{item.discountPercentage}%
                     form(
                         action=`/cart/add/${item.id}`

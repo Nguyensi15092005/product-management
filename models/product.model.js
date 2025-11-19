@@ -14,7 +14,7 @@ const productSchema = new mongoose.Schema({
     discountPercentage: Number,
     stock: Number,
     thumbnail: String,
-    featured: String,
+    featured: String, // nổi bật
     status: String,
     position: Number,
     deleted: {

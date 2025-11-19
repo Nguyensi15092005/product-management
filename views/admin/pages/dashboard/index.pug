@@ -1,8 +1,6 @@
 extends ../../layout/default.pug
 
 block main 
-  h1 Trang tong quan
-
   .row.mt-4 
     .col-12
       .card.mb-4 
@@ -18,56 +16,51 @@ block main
           if(user.email)
             p Email: <b>#{user.email}</b>
           if(user.phone)
-            p Số điện thoại: <b>#{user.phone}</b>
+             p Số điện thoại: <b>#{user.phone}</b>
           if(role.title)
             p Phân quyền: <b>#{role.title}</b>
 
-    .col-6  
-      .card.mb-4 
-        .card-header Danh mục sản phẩm 
-        .card-body 
-          p Số lượng: #{statistic.categoryProduct.total}
-          p Hoạt động: #{statistic.categoryProduct.active}
-          p Dừng hoạt động: #{statistic.categoryProduct.inactive}
-    .col-6  
-      .card.mb-4 
-        .card-header Danh sách sản phẩm 
-        .card-body 
-          p Số lượng: #{statistic.product.total}
-          p Hoạt động: #{statistic.product.active}
-          p Dừng hoạt động: #{statistic.product.inactive}
-    .col-6  
-      .card.mb-4 
-        .card-header Danh mục bài viết
-        .card-body 
-          p Số lượng: #{statistic.categoryActicle.total}
-          p Hoạt động: #{statistic.categoryActicle.active}
-          p Dừng hoạt động: #{statistic.categoryActicle.inactive}
-    .col-6  
-      .card.mb-4 
-        .card-header Danh sách bài viết 
-        .card-body 
-          p Số lượng: #{statistic.acticle.total}
-          p Hoạt động: #{statistic.acticle.active}
-          p Dừng hoạt động: #{statistic.acticle.inactive}
-    .col-6  
-      .card.mb-4 
-        .card-header tài khoản admin 
-        .card-body 
-          p Số lượng: #{statistic.account.total}
-          p Hoạt động: #{statistic.account.active}
-          p Dừng hoạt động: #{statistic.account.inactive}
-    .col-6  
-      .card.mb-4 
-        .card-header tài khoản client
-        .card-body 
-          p Số lượng: #{statistic.user.total}
-          p Hoạt động: #{statistic.user.active}
-          p Dừng hoạt động: #{statistic.user.inactive}
-    .col-6  
-      .card.mb-4 
-        .card-header Sliders client
-        .card-body 
-          p Số lượng: #{statistic.slider.total}
-          p Hoạt động: #{statistic.slider.active}
-          p Dừng hoạt động: #{statistic.slider.inactive}
+    .col-4.text-center 
+      .box-cart.d-flex.mb-4
+        .box-cart-icon.icon-category-product 
+          | <i class="fa-solid fa-layer-group"></i>
+        .box-cart-content
+          .box-cart-total.text-center #{statistic.categoryProduct.total}
+          .box-cart-title.title-category-product.text-center Danh mục sản phẩm
+    .col-4.text-center
+      .box-cart.d-flex.mb-4
+          .box-cart-icon.icon-list-product 
+            | <i class="fa-solid fa-table-list"></i>
+          .box-cart-content
+            .box-cart-total.text-center #{statistic.product.total}
+            .box-cart-title.title-list-product.text-center Danh sách sản phẩm 
+    
+    .col-4.text-center
+      .box-cart.d-flex.mb-4
+          .box-cart-icon.icon-catogory-article 
+            | <i class="fa-regular fa-newspaper"></i>
+          .box-cart-content
+            .box-cart-total.text-center #{statistic.categoryActicle.total}
+            .box-cart-title.title-catogory-article.text-center Danh mục bài viết 
+    .col-4.text-center
+      .box-cart.d-flex.mb-4
+          .box-cart-icon.icon-list-article 
+            | <i class="fa-solid fa-list-ul"></i>
+          .box-cart-content
+            .box-cart-total.text-center #{statistic.acticle.total}
+            .box-cart-title.title-list-article.text-center Danh sách bài viết  
+    
+    .col-4.text-center
+      .box-cart.d-flex.mb-4
+          .box-cart-icon.icon-account
+            | <i class="fa-solid fa-user-secret"></i>
+          .box-cart-content
+            .box-cart-total.text-center #{statistic.account.total}
+            .box-cart-title.title-account.text-center tài khoản admin   
+    .col-4.text-center
+      .box-cart.d-flex.mb-4
+          .box-cart-icon.icon-user
+            | <i class="fa-solid fa-users"></i>
+          .box-cart-content
+            .box-cart-total.text-center #{statistic.user.total}
+            .box-cart-title.title-user.text-center tài khoản client

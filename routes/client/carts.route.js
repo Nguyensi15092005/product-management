@@ -11,6 +11,7 @@ router.get("/delete/:productId", controller.delete);
 
 router.get("/update/:productId/:quantity", controller.update);
 
+router.get("/order", controller.order);
 
 
 

@@ -92,14 +92,14 @@ module.exports.detail = async (req, res) => {
       deleted: false,
       _id: id
     });
-    const newPrice = productHelper.priceNewProduct(order.products);
-    console.log(newPrice);
+    let newPrice = productHelper.priceNewProduct(order.products);
+    
     res.render("admin/pages/order/detail", {
       pageTitle: "Chi tiết đơn hàng",
       order: newPrice
     })
   } catch (error) {
-
+    console.log("Lỗi lấy ra chi tiết sản phẩm order")
   }
 }
 
@@ -112,13 +112,13 @@ module.exports.transport = async (req, res) => {
 // [DELETE] admin/order/delete
 module.exports.delete = async (req, res) => {
   console.log(req.params)
-  res.send('OK')
-  // try {
-  //   const id = req.params.id;
-  //   await Order.updateOne({ _id: id }, { deleted: true });
-  //   req.flash("success", "Xóa thành công");
-  // } catch (error) {
-  //   req.flash("error", "Xóa thất bại");
-  // }
-  // res.redirect("back");
+  // res.send('OK')
+  try {
+    const id = req.params.id;
+    await Order.updateOne({ _id: id }, { deleted: true });
+    req.flash("success", "Xóa thành công");
+  } catch (error) {
+    req.flash("error", "Xóa thất bại");
+  }
+  res.redirect("back");
 }

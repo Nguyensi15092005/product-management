@@ -1,6 +1,9 @@
 const Carts = require("../../models/carts.model");
 const Products = require("../../models/product.model");
 const productHelper = require("../../helper/products");
+const User = require("../../models/users.model");
+const Cart = require("../../models/carts.model");
+const Order = require("../../models/order.model");
 
 
 module.exports.index = async (req, res) => {
@@ -106,4 +109,36 @@ module.exports.update = async (req, res) => {
     res.redirect("back");
 
 } 
+
+// [GET] /cart/order
+module.exports.order = async (req, res) => {
+    try {
+        const tokenUser = req.cookies.tokenUser;
+        if(!tokenUser){
+            req.flash("error", "Đăng nhập để xem lịch sử mua hàng");
+            res.redirect("/");
+            return;
+        }
+        const user = await User.findOne({
+            tokenUser: tokenUser,
+            deleted: false
+        });
+        const cart = await Cart.findOne({
+            user_id: user.id
+        });
+        const order = await Order.find({
+            cart_id: cart.id
+        });
+        console.log(order);
+        res.render("client/pages/cart/lichsumuahang", {
+            pageTitle: "Lịch sử mua hàng",
+            order: order.reverse()
+        });
+    } catch (error) {
+        console.log("Lỗi order", error)
+        req.flash("error", "Lỗi Order");
+        res.redirect("/");
+    }
+}
+
 

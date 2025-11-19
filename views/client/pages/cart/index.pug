@@ -8,27 +8,29 @@ block main
   +alert-success(2000)
   .container
     .row
-      .col-12.mt-2
+      .col-12.mt-3
         +box-head("Giỏ hàng")
-    
+
+      .col-12.d-flex.justify-content-end
+        a(class="btn-order" href="/cart/order") Xem lịch sử mua hàng 
       .col-12.cart-shopping.my-3
-        table(
-          class="table table-hover"
-          checkbox-multi
-        )
-          thead 
-            tr 
-              th 
-                input(type="checkbox" name="checkall")
-              th STT 
-              th Ảnh
-              th Tên
-              th Giá 
-              th Số lượng
-              th tổng tiền
-              th Hành động 
-          tbody 
-            if(cartDetail.products.length > 0)
+        if(cartDetail.products.length > 0)
+          table(
+            class="table table-hover"
+            checkbox-multi
+          )
+            thead 
+              tr 
+                th 
+                  input(type="checkbox" name="checkall")
+                th STT 
+                th Ảnh
+                th Tên
+                th Giá 
+                th Số lượng
+                th tổng tiền
+                th Hành động 
+            tbody 
               each item, index in cartDetail.products 
                 tr 
                   td 
@@ -43,8 +45,8 @@ block main
                     img(src=item.productInfo.thumbnail, alt=item.productInfo.title width="80px")
                   td 
                     a(href=`/products/detail/${item.productInfo.slug}`) #{item.productInfo.title}
-                  td #{item.productInfo.priceNew}$
-                  td 
+                  td #{item.productInfo.priceNew.toLocaleString('vi-VN', { style: 'currency', currency: 'VND' })}
+                  td
                     input(
                       type="number"
                       name="quantity"
@@ -53,14 +55,16 @@ block main
                       style="width: 60px"
                       product-id=item.product_id 
                     ) 
-                  td #{item.totalPrice}$
+                  td #{item.totalPrice.toLocaleString('vi-VN', { style: 'currency', currency: 'VND' })}
                   td  
                     a(href=`/cart/delete/${item.product_id}` class="btn btn-danger") Xóa 
 
-            else 
-              p Giỏ hàng tống
+        else 
+          p(class="cart-none") Bạn chưa thêm sản phẩm nào vào giỏ hàng.
+          .btn-center-home
+            a(class="btn-order" href="/") Thêm vào giỏ hàng ngay
         if(cartDetail.products.length > 0)
-          h4(class="text-right") Tổng đơn hàng: <b>#{cartDetail.totalPrice}$</b>
+          h4(class="text-right") Tổng đơn hàng: <b>#{cartDetail.totalPrice.toLocaleString('vi-VN', { style: 'currency', currency: 'VND' })}</b>
           div(class="text-right mt-4")
             a(href="/checkout" class="btn btn-success pay" ) Thanh toán
 

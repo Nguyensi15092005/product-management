@@ -33,7 +33,7 @@ block main
                 )
               td #{item.title}
               td #{item.quantity}
-              td #{item.priceNew}
+              td #{item.priceNew.toLocaleString('vi-VN', { style: 'currency', currency: 'VND' })}
   .row 
     .col-12.text-right
       if(role.permissions.includes("order_edit")) 
