@@ -17,6 +17,8 @@ const chatRouter = require("./chat.route");
 const userSocketRouter = require("./userSocket.route");
 const roomchatRouter = require("./rooms-chat.route");
 const paymentRouter = require("./payment.route");
+const chatboxRouter = require("./chatbox.route");
+const ProductPriviewRouter = require("./productPreview.route");
 
 
 module.exports = (app)=>{
@@ -49,6 +51,10 @@ module.exports = (app)=>{
     app.use('/userSocket',authMiddleware.requireAuth, userSocketRouter);
 
     app.use('/rooms-chat',authMiddleware.requireAuth, roomchatRouter);
+
+    app.use('/geminiAI', chatboxRouter);
+
+    app.use("/product-privew", authMiddleware.requireAuth, ProductPriviewRouter);
     
 
 

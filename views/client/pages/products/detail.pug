@@ -1,6 +1,7 @@
 extends ../../layout/default.pug
 include ../../mixins/box-head.pug
 include ../../mixins/alert.pug
+include ../../mixins/product-layout.pug
 
 
 block main 
@@ -50,7 +51,7 @@ block main
 
             button(
               type="submit"
-              class="btn btn-success btn-block"
+              class="btn btn-success btn-block button-detail"
             ) Thêm vào giỏ hàng
 
     .container.my-5 
@@ -58,4 +59,7 @@ block main
         .col-12
           +box-head("Mô trả sản phẩm")
           .inner-description-detail.px-3 !{product.description}
-            
+      .row.mt-4 
+        .col-12
+          +box-head("Sản phẩm tương tự")      
+      +product-grid(newProudctCategory)

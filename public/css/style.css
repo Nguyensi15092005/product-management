@@ -492,7 +492,7 @@ a:hover{
     padding: 3px 6px;
     border-radius: 8px;
 }
-.product-detail button{
+.product-detail .button-detail{
     font-size: 18px;
     font-weight: 600;
     padding: 10px 20px;
@@ -500,7 +500,7 @@ a:hover{
     border: 0;
     background: linear-gradient(to right, #f97316, #fb923c, #facc15);
 }
-.product-detail button:hover{
+.product-detail .button-detail:hover{
     background: #ffffff00;
     border: 2px solid #d26309;
     color: #d26309;

@@ -1,5 +1,4 @@
 const ProductCategory = require("../../models/product-category.model");
-const Prodcuts = require("../../models/product.model");
 const productHelper = require("../../helper/products");
 const productsCategoryHelper = require("../../helper/products-category");
 
@@ -40,12 +39,20 @@ module.exports.detail = async (req, res) => {
 
             product.category = categoryID
         }
+        
+        const productCategory = await Product.find({
+            product_category_id: product.product_category_id,
+            deleted: false
+        });
+        const newProudctCategory = productHelper.priceNewProduct(productCategory);
+        
 
         productHelper.newPriceProduct(product)
 
         res.render("client/pages/products/detail", {
             pageTitle: "Chi tiết sản phẩm",
-            product: product
+            product: product,
+            newProudctCategory
         })
     } catch (error) {
         res.redirect("/products")

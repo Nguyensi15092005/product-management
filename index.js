@@ -40,6 +40,7 @@ app.use(methodOverride('_method'))
 
 // để lấy đc thuộc tính trong req.body
 app.use(bodyParser.urlencoded({ extended: false }))
+app.use(express.json())
 
 // flash 
 app.use(cookieParser('SISISISISISISI'));

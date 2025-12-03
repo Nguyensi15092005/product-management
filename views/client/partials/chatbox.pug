@@ -1,0 +1,16 @@
+.chatbox-container
+    .chatbox-icon
+        | <i class="fa-solid fa-comment-dots"></i>
+    .chatbox-card.rounded-4
+        .chatbox-header.text-white.p-2.rounded-top-4
+            div(class="info d-flex align-items-center")
+                img(src=settingGeneral.logo alt=settingGeneral.websiteName)
+                h5 Di động việt
+            .boxchat-clear 
+                |<i class="fa-solid fa-xmark"></i> 
+
+        .chatbox-body#chatBody
+        .chatbox-footer.d-flex.gap-2.p-3
+            input#chatInput.form-control(type="text" placeholder="Nhập tin nhắn...")
+            button#sendBtn
+                |<i class="fa-regular fa-paper-plane"></i>

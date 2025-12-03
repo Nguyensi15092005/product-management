@@ -1,0 +1,134 @@
+.chatbox-container {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    width: 380px;
+    border-radius: 10px;
+    z-index: 9999;
+}
+
+.chatbox-container .chatbox-icon{
+    color: rgb(240, 121, 36);
+    font-size: 50px;
+    margin-left: 300px;
+    margin-bottom: 30px;
+    cursor: pointer;
+}
+
+
+.chatbox-card {
+    display: none;
+    height: 520px;
+    /* display: flex; */
+    flex-direction: column;
+}
+.chatbox-card .chatbox-header{
+    background: linear-gradient(to right, #f97316, #fb923c, #facc15);
+    display: flex;
+    justify-content: space-between;
+    border-radius: 10px 10px 0 0;
+}
+.chatbox-card .chatbox-header .info img{
+    width: 40px;
+    height: 40px;
+    object-fit: contain;
+    border-radius: 50%;
+    margin-right: 5px;
+}
+
+.chatbox-container .chatbox-card .boxchat-clear {
+    font-size: 20px;
+    margin-right: 10px;
+}
+
+.chatbox-body {
+    flex: 1;
+    padding: 15px;
+    overflow-y: auto;
+    background: #f7f7f7;
+    border: 1px solid #ea7c1d;
+}
+
+
+/* .message {
+    margin-bottom: 12px;
+    max-width: 80%;
+    padding: 10px 14px;
+    border-radius: 12px;
+    font-size: 15px;
+}
+
+
+.user-msg {
+    background: #ea7c1d;
+    color: white;
+    margin-left: auto;
+    border-bottom-right-radius: 0;
+}
+
+
+.bot-msg {
+    background: white;
+    border: 1px solid #ddd;
+    border-bottom-left-radius: 0;
+} */
+
+.chatbox-footer{
+    background-color: #fff;
+    border: 1px solid #ea7c1d ;
+    border-radius: 0 0 10px 10px;
+    position: relative;
+}
+
+.chatbox-footer input {
+    height: 40px;
+    border-radius: 20px;
+}
+
+
+.chatbox-footer button {
+    position: absolute;
+    right: 20px;
+    top: 18px;
+    background-color: #e6e4e2;
+    color: #ea7c1d;
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+    border: none;
+}
+/* Tin nhắn AI (bên trái) */
+.msg-left {
+    background: white;
+    border: 1px solid #ddd;
+    max-width: 80%;
+    padding: 10px 14px;
+    border-radius: 12px;
+    margin-bottom: 12px;
+    color: #333;
+    float: left;
+    clear: both;
+    border-bottom-left-radius: 0;
+}
+
+/* Tin nhắn User (bên phải) */
+.msg-right {
+    background: #ea7c1d;
+    color: white;
+    max-width: 80%;
+    padding: 10px 14px;
+    border-radius: 12px;
+    margin-bottom: 12px;
+    float: right;
+    clear: both;
+    border-bottom-right-radius: 0;
+}
+
+/* Đảm bảo box chat xuống dòng đúng */
+#chatBody {
+    overflow-y: auto;
+}
+
+#chatBody div {
+    display: inline-block;
+}
