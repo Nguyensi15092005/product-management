@@ -30,6 +30,6 @@ const ProductPreviewSchema = new mongoose.Schema({
         timestamps: true
     });
 
-const ProductPreview = mongoose.model('ProductPreview', ProductPreviewSchema, "productPreviews");
+const ProductPreview = mongoose.model('ProductPreview', ProductPreviewSchema, "productReviews");
 
 module.exports = ProductPreview;

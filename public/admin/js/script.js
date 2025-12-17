@@ -225,3 +225,47 @@ if (sort) {
 
 
 
+// chart
+async function loadChart() {
+    const res = await fetch("/admin/dashboard/bieudo");
+    const data = await res.json();
+
+    const labels = data.map(x => x._id);           // ["2025-01", "2025-02", ...]
+    const revenues = data.map(x => x.totalRevenue); // [2000, 3200, ...]
+    const orders = data.map(x => x.totalOrders);    // [5, 12, ...]
+
+    renderChart(labels, revenues, orders);
+}
+
+function renderChart(labels, revenues, orders) {
+    var options = {
+        chart: {
+            type: "area",
+            height: 350
+        },
+        stroke: {
+            width: 2
+        },
+        series: [
+            {
+                name: "Doanh thu",
+                data: revenues
+            },
+            {
+                name: "Số đơn",
+                data: orders
+            }
+        ],
+        xaxis: {
+            categories: labels
+        }
+    };
+
+    var chart = new ApexCharts(document.querySelector("#chart"), options);
+    chart.render();
+}
+
+loadChart();
+
+
+

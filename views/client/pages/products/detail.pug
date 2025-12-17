@@ -5,7 +5,8 @@ include ../../mixins/product-layout.pug
 
 
 block main 
-  +alert-success(2000)
+  +alert-success(5000)
+  +alert-error(5000)
   .product-detail
     .container.my-3 
       .row 
@@ -54,8 +55,9 @@ block main
               class="btn btn-success btn-block button-detail"
             ) Thêm vào giỏ hàng
 
-    .container.my-5 
-      .row 
+            p(id="show-preview" class= "btn btn-success btn-block button-detail mt-2") Viết đánh giá
+      
+      .row.my-5 
         .col-12
           +box-head("Mô trả sản phẩm")
           .inner-description-detail.px-3 !{product.description}
@@ -63,3 +65,34 @@ block main
         .col-12
           +box-head("Sản phẩm tương tự")      
       +product-grid(newProudctCategory)
+
+      if(user)
+        .row.d-flex.justify-content-center 
+          .col-8 
+            .preview 
+              form(
+                action=`/product-preview`
+                method="POST"
+              )
+                div(class="preview-img")
+                  img(src=product.thumbnail)
+                div(class="preview-title") #{product.title}
+                input(type="hidden" name="productId" value=product.id)
+                textarea(
+                  placeholder="Mời bạn chia sẻ cảm nhận của mình..."
+                  name="content"
+                  class="form-control mb-2"
+                  rows="5"
+                  required
+                )
+                button(
+                  type="submit"
+                  class="btn btn-success btn-block button-detail"
+                ) Gửi đánh giá
+              div(class="preview-icon" id="close-preview")
+                | <i class="fa-solid fa-xmark"></i>
+
+      else 
+        .preview-error Vui lòng đăng nhập để có thể đánh giá sản phẩm.
+          div(class="preview-error_icon" id="close-preview")
+            | <i class="fa-solid fa-xmark"></i>

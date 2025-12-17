@@ -54,7 +54,7 @@ module.exports = (app)=>{
 
     app.use('/geminiAI', chatboxRouter);
 
-    app.use("/product-privew", authMiddleware.requireAuth, ProductPriviewRouter);
+    app.use("/product-preview", authMiddleware.requireAuth, ProductPriviewRouter);
     
 
 

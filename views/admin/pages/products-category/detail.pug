@@ -3,45 +3,59 @@ include ../../mixin/select-tree.pug
 
 block main
   if(role.permissions.includes("products-category_view"))
-    if(productsCategory.title)
-      h1(class="mb-4") #{productsCategory.title}
+    .container-fluid
+      .card.shadow-sm.product-category-detail-card
+        .card-header.bg-secondary.text-white
+          h5.mb-0 Chi tiết danh mục sản phẩm
 
-    if(productsCategory.thumbnail)
-      div(class="mb-4")  
-        img(
-          src=productsCategory.thumbnail
-          style="width:100px"
-        )
-    
-    if(productsCategory.parent_id)
-      div(class="mb-4")
-        select(
-          name="parent_id"
-          id="parent_id"
-          class="form-control"
-        ) 
-          option(value="") --Chọn danh mục cha--
-          if(category)
-            +select-tree(category, 1 ,productsCategory.parent_id)
+        .card-body
+          .row
+          
+            .col-md-4.text-center
+              if(productsCategory.thumbnail)
+                img.product-category-detail-thumbnail(
+                  src=productsCategory.thumbnail
+                  alt=productsCategory.title
+                )
+              else
+                div.text-muted Không có hình ảnh
 
-    if(productsCategory.status)
-      div(class="mb-4")
-        span Trạng thái:
-        if (productsCategory.status === "active")
-          span(class="badge badge-success") Hoạt động
-        else 
-          span(class="badge badge-danger") Dừng hoạt động
+          
+            .col-md-8
+              if(productsCategory.title)
+                h4.product-category-detail-title #{productsCategory.title}
 
-    //- if (productsCategory.position)
-    //-   div(class="mb-4") Vị trí: <b>#{productsCategory.position}</b>
+              ul.list-group.list-group-flush.mb-3.product-category-detail-list
+                if(productsCategory.parent_id)
+                  li.list-group-item.product-category-detail-item
+                    span.product-category-detail-label Danh mục cha
+                    select.form-control.product-category-detail-select(
+                      name="parent_id"
+                      id="parent_id"
+                      disabled
+                    )
+                      option(value="") -- Danh mục cha --
+                      if(category)
+                        +select-tree(category, 1, productsCategory.parent_id)
 
-    if (productsCategory.description)
-      div(class="mb-4") !{productsCategory.description}
+                if(productsCategory.status)
+                  li.list-group-item.product-category-detail-item
+                    span.product-category-detail-label Trạng thái
+                    if(productsCategory.status === "active")
+                      span.badge.badge-success.ml-2 Hoạt động
+                    else
+                      span.badge.badge-danger.ml-2 Dừng hoạt động
 
-    if(role.permissions.includes("products-category_edit"))
-      a(
-        href=`${prefixAdmin}/products-category/edit/${productsCategory.id}`
-        class="btn btn-warning"
-      ) Chỉnh sửa
+              if(productsCategory.description)
+                .product-category-detail-description
+                  h6.product-category-detail-desc-title Mô tả
+                  .product-category-detail-desc-content !{productsCategory.description}
+
+              if(role.permissions.includes("products-category_edit"))
+                a.btn.btn-warning.mt-3.product-category-detail-edit(
+                  href=`${prefixAdmin}/products-category/edit/${productsCategory.id}`
+                )
+                  i.fas.fa-edit.mr-2
+                  | Chỉnh sửa danh mục
 
     script(src="/admin/js/products.js")

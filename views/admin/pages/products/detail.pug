@@ -1,44 +1,64 @@
 extends ../../layout/default.pug
 
-block main 
+block main
   if(role.permissions.includes("products_view"))
-    if(product.title)
-      h1(class="mb-4") #{product.title}
+    .container-fluid
+      .card.shadow-sm.product-detail-card
+        .card-header.bg-secondary.text-white
+          h5.mb-0 Chi tiết sản phẩm
 
-    if(product.price)
-      div(class="mb-4") Giá: <b>#{product.price.toLocaleString('vi-VN', { style: 'currency', currency: 'VND' })}</b>
+        .card-body
+          .row
+            // LEFT: Thumbnail
+            .col-md-4.text-center
+              if(product.thumbnail)
+                img.product-detail-thumbnail(
+                  src=product.thumbnail
+                  alt=product.title
+                )
+              else
+                div.text-muted Không có hình ảnh
 
-    if(product.discountPercentage)
-      div(class="mb-4") Giảm giá: <b>#{product.discountPercentage}%</b>
-    
-    if(product.stock)
-      div(class="mb-4") Còn lại: <b>#{product.stock}</b>
+            // RIGHT: Info
+            .col-md-8
+              if(product.title)
+                h4.product-detail-title #{product.title}
 
-    if(product.thumbnail)
-      div(class="mb-4")  
-        img(
-          src=product.thumbnail
-          style="width:100px"
-        )
+              ul.list-group.list-group-flush.mb-3.product-detail-list
+                if(product.price)
+                  li.list-group-item.product-detail-item
+                    span.product-detail-label Giá:
+                    span.product-detail-value.text-danger
+                      | #{product.price.toLocaleString('vi-VN', { style: 'currency', currency: 'VND' })}
 
-    if(product.status)
-      div(class="mb-4")
-        span Trạng thái:
-        if (product.status === "active")
-          span(class="badge badge-success") Hoạt động
-        else 
-          span(class="badge badge-danger") Dừng hoạt động
+                if(product.discountPercentage)
+                  li.list-group-item.product-detail-item
+                    span.product-detail-label Giảm giá:
+                    span.product-detail-value #{product.discountPercentage}%
 
-    //- if (product.position)
-    //-   div(class="mb-4") Vị trí: <b>#{product.position}</b>
+                if(product.stock)
+                  li.list-group-item.product-detail-item
+                    span.product-detail-label Tồn kho:
+                    span.product-detail-value #{product.stock}
 
-    if (product.description)
-      div(class="mb-4") !{product.description}
+                if(product.status)
+                  li.list-group-item.product-detail-item
+                    span.product-detail-label Trạng thái:
+                    if(product.status === "active")
+                      span.badge.badge-success.ml-2 Hoạt động
+                    else
+                      span.badge.badge-danger.ml-2 Dừng hoạt động
 
-    if(role.permissions.includes("products_edit"))
-      a(
-        href=`${prefixAdmin}/products/edit/${product.id}`
-        class="btn btn-warning"
-      ) Chỉnh sửa
+              if(product.description)
+                .product-detail-description
+                  h6.product-detail-desc-title Mô tả
+                  .product-detail-desc-content !{product.description}
+
+              if(role.permissions.includes("products_edit"))
+                a.btn.btn-warning.mt-3.product-detail-edit(
+                  href=`${prefixAdmin}/products/edit/${product.id}`
+                )
+                  i.fas.fa-edit.mr-2
+                  | Chỉnh sửa sản phẩm
 
     script(src="/admin/js/products.js")

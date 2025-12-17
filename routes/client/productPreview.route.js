@@ -1,12 +1,9 @@
 const express = require("express");
 const router = express.Router();
 
-const controller = require("../../controllers/client/carts.controller")
+const controller = require("../../controllers/client/productPreview.controller")
 
-router.get("/",controller.index)
-
-
-
+router.post("/",controller.index)
 
 
 

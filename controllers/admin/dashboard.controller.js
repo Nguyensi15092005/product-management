@@ -4,7 +4,8 @@ const ActicleCategory = require("../../models/articles-category.model");
 const Acticle= require("../../models/articles.model");
 const Account = require("../../models/account.model");
 const User = require("../../models/users.model"); 
-const Slider = require("../../models/sliders.model")
+const Slider = require("../../models/sliders.model");
+const Order = require("../../models/order.model");
 
 // [GET] /admin/dashboard
 module.exports.dashboard = async (req, res) => {
@@ -137,4 +138,27 @@ module.exports.dashboard = async (req, res) => {
         pageTitle: "Trang tong quan",
         statistic: statistic
     });
+}
+
+// [GET] /admin/dashboard/bieudo
+module.exports.bieudo = async (req, res) => {
+    try {
+        const bieudo = await Order.aggregate([
+        {
+            $group: {
+                _id: { 
+                    $dateToString: { format: "%Y-%m", date: "$createdAt" }
+                },
+                totalRevenue: { $sum: "$totalPrice" },
+                totalOrders: { $sum: 1 }
+            }
+        },
+        { $sort: { _id: 1 } }
+        ]);
+
+        res.json(bieudo);
+        
+    } catch (error) {
+        
+    }
 }

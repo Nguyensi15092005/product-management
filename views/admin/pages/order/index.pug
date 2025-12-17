@@ -81,7 +81,11 @@ block main
                       +formatDateTime(item.createdAt)
                   td 
                     a(href=`${prefixAdmin}/order/detail/${item.id}` class="btn btn-success") chi tiết
-                    a(href=`${prefixAdmin}/order/delete/${item.id}` class="btn btn-danger") Xóa
+                    button(
+                      class="btn btn-danger"
+                      button-delete
+                      data-id=item.id
+                    ) Xóa
 
     nav 
       +pagination(pagination)
@@ -93,6 +97,12 @@ block main
       id="form-change-status"
       data-path=`${prefixAdmin}/order/change-status`
     )
+    form(
+      action=""
+      method="POST"
+      id="form-delete-item"
+      data-path=`${prefixAdmin}/order/delete`
+    ) 
     script(src="/admin/js/products.js") 
 
                   
